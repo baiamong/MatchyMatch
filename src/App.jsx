@@ -14,6 +14,7 @@ import TriviaBoard from './components/trivia/TriviaBoard'
 import MemoryBoard from './components/memory/MemoryBoard'
 import TypeRaceBoard from './components/typerace/TypeRaceBoard'
 import WordSearchBoard from './components/wordsearch/WordSearchBoard'
+import MathQuizBoard from './components/mathquiz/MathQuizBoard'
 import { puzzles } from './data/puzzles'
 
 const envIndex = parseInt(import.meta.env.VITE_PUZZLE_INDEX, 10)
@@ -66,6 +67,8 @@ function App() {
           <TypeRaceBoard key={`typerace-${gameKey}`} />
         ) : activeGame === 'wordsearch' ? (
           <WordSearchBoard key={`wordsearch-${gameKey}`} />
+        ) : activeGame === 'mathquiz' ? (
+          <MathQuizBoard key={`mathquiz-${gameKey}`} />
         ) : (
           <SudokuBoard key={`sudoku-${gameKey}`} />
         )}
