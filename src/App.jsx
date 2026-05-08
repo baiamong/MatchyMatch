@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from './components/Header'
 import { useDarkMode } from './hooks/useDarkMode'
 import Footer from './components/Footer'
+import GamePicker from './components/GamePicker'
 import GameBoard from './components/GameBoard'
 import WordleBoard from './components/wordle/WordleBoard'
 import NumberCrunchBoard from './components/numbercrunch/NumberCrunchBoard'
@@ -27,7 +28,8 @@ const PUZZLE_INDEX =
     : 0
 
 function App() {
-  const [activeGame, setActiveGame] = useState('matchy')
+  // null = home / game picker screen
+  const [activeGame, setActiveGame] = useState(null)
   const [gameKey, setGameKey] = useState(0)
   const { dark, toggle: toggleDark } = useDarkMode()
 
@@ -35,16 +37,28 @@ function App() {
     setGameKey((k) => k + 1)
   }
 
-  const handleGameChange = (game) => {
+  const handleGameSelect = (game) => {
     setActiveGame(game)
     setGameKey((k) => k + 1)
   }
 
+  const handleGoHome = () => {
+    setActiveGame(null)
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Header activeGame={activeGame} onGameChange={handleGameChange} dark={dark} onToggleDark={toggleDark} />
+      <Header
+        activeGame={activeGame}
+        onGameChange={handleGameSelect}
+        onGoHome={handleGoHome}
+        dark={dark}
+        onToggleDark={toggleDark}
+      />
       <main className="flex-1 flex flex-col items-center pt-6 pb-10 px-4 sm:px-6">
-        {activeGame === 'matchy' ? (
+        {!activeGame ? (
+          <GamePicker onGameSelect={handleGameSelect} />
+        ) : activeGame === 'matchy' ? (
           <GameBoard
             key={`matchy-${gameKey}`}
             puzzle={puzzles[PUZZLE_INDEX]}

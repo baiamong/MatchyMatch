@@ -1,6 +1,6 @@
 import DarkModeToggle from './DarkModeToggle'
 
-export default function Header({ activeGame, onGameChange, dark, onToggleDark }) {
+export default function Header({ activeGame, onGameChange, onGoHome, dark, onToggleDark }) {
   return (
     <header
       style={{
@@ -12,10 +12,31 @@ export default function Header({ activeGame, onGameChange, dark, onToggleDark })
       }}
       className="w-full sticky top-0 z-40"
     >
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
 
-        {/* Wordmark */}
-        <div className="flex items-center gap-2.5 shrink-0 min-w-0">
+        {/* Left: back button (when in a game) or spacer */}
+        <div className="w-24 flex items-center">
+          {activeGame ? (
+            <button
+              onClick={onGoHome}
+              className="btn-ghost flex items-center gap-1.5 px-3 py-1.5 text-sm"
+              aria-label="Back to game picker"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Games
+            </button>
+          ) : null}
+        </div>
+
+        {/* Centre: Wordmark */}
+        <button
+          onClick={onGoHome}
+          className="flex items-center gap-2.5 shrink-0 min-w-0 bg-transparent border-none cursor-pointer"
+          aria-label="Go to game picker"
+        >
           {/* App icon */}
           <svg
             width="34"
@@ -83,47 +104,14 @@ export default function Header({ activeGame, onGameChange, dark, onToggleDark })
           >
             Puzzlr
           </h1>
+        </button>
+
+        {/* Right: dark mode toggle (always visible) */}
+        <div className="w-24 flex items-center justify-end">
+          <DarkModeToggle dark={dark} onToggle={onToggleDark} />
         </div>
-
-        {/* Game switcher — iOS segmented control */}
-        <nav className="seg-control" role="tablist" aria-label="Game switcher">
-          {[
-            { id: "matchy",      label: "Matchy"       },
-            { id: "wordle",      label: "Wordle"       },
-            { id: "crunch",      label: "Crunch"       },
-            { id: "cross",       label: "Cross"        },
-            { id: "chain",       label: "Chain"        },
-            { id: "scramble",    label: "Scramble"     },
-            { id: "anagram",     label: "Anagram"      },
-            { id: "sudoku",      label: "Sudoku"       },
-            { id: "trivia",      label: "Trivia"       },
-            { id: "memory",      label: "Memory"       },
-            { id: "typerace",    label: "Type Race"    },
-            { id: "wordsearch",  label: "Word Search"  },
-            { id: "mathquiz",    label: "Math Quiz"    },
-            { id: "hangman",     label: "Hangman"      },
-            { id: "snake",       label: "Snake"        },
-            { id: "spellingbee", label: "Spelling Bee" },
-          ].map(({ id, label }) => {
-            const active = activeGame === id;
-            return (
-              <button
-                key={id}
-                role="tab"
-                aria-selected={active}
-                onClick={() => onGameChange(id)}
-                className={`seg-control__btn${active ? " seg-control__btn--active" : ""}`}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Dark mode toggle */}
-        <DarkModeToggle dark={dark} onToggle={onToggleDark} />
 
       </div>
     </header>
-  );
+  )
 }
