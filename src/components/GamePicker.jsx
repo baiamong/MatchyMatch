@@ -101,7 +101,7 @@ const GAMES = [
     id: 'snake',
     emoji: '🐍',
     name: 'Snake',
-    description: 'Eat, grow, and don\'t hit the walls',
+    description: "Eat, grow, and don't hit the walls",
     color: '#30d158',
   },
   {
@@ -110,6 +110,13 @@ const GAMES = [
     name: 'Spelling Bee',
     description: 'Make words from 7 letters — use the centre one',
     color: '#ff9f0a',
+  },
+  {
+    id: '2048',
+    emoji: '🟧',
+    name: '2048',
+    description: 'Slide & merge tiles to reach the 2048 tile',
+    color: '#f65e3b',
   },
 ]
 
