@@ -100,6 +100,7 @@ export default function Header({ activeGame, onGameChange, dark, onToggleDark })
             { id: "memory",     label: "Memory"      },
             { id: "typerace",   label: "Type Race"   },
             { id: "wordsearch", label: "Word Search" },
+            { id: "mathquiz",   label: "Math Quiz"   },
           ].map(({ id, label }) => {
             const active = activeGame === id;
             return (
