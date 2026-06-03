@@ -118,6 +118,13 @@ const GAMES = [
     description: 'Slide & merge tiles to reach the 2048 tile',
     color: '#f65e3b',
   },
+  {
+    id: 'minesweeper',
+    emoji: '💣',
+    name: 'Minesweeper',
+    description: 'Clear the minefield without hitting a bomb',
+    color: '#2e7d32',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
