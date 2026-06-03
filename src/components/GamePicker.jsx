@@ -125,6 +125,13 @@ const GAMES = [
     description: 'Clear the minefield without hitting a bomb',
     color: '#2e7d32',
   },
+  {
+    id: 'tictactoe',
+    emoji: '⭕',
+    name: 'Tic Tac Toe',
+    description: 'Beat the AI in this classic game',
+    color: '#0a84ff',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
@@ -167,3 +174,4 @@ export default function GamePicker({ onGameSelect }) {
     </div>
   )
 }
+
