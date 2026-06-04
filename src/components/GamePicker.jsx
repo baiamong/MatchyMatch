@@ -128,8 +128,8 @@ const GAMES = [
   {
     id: 'tictactoe',
     emoji: '⭕',
-    name: 'Tic Tac Toe',
-    description: 'Beat the AI in this classic game',
+    name: 'Tic Tac Toe with Brian 🧠',
+    description: 'Use your brain to beat Brian!',
     color: '#0a84ff',
   },
   {
