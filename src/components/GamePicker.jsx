@@ -146,6 +146,13 @@ const GAMES = [
     description: "Tap Greg's eggs before they hatch — timing is everything!",
     color: '#f4a22d',
   },
+  {
+    id: 'nathanielninja',
+    emoji: '🥋',
+    name: "Nathaniel's Number Ninja",
+    description: 'Identify numbers quickly before time runs out!',
+    color: '#0a84ff',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
