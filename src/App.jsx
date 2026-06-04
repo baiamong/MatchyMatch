@@ -29,6 +29,7 @@ import NickOfTTimeBoard from './components/nickofttime/NickOfTTimeBoard'
 import ColourClashBoard from './components/colourclash/ColourClashBoard'
 import FlipFlopBoard from './components/flipflop/FlipFlopBoard'
 import DiceRollBoard from './components/diceroll/DiceRollBoard'
+import PuppyFetchBoard from './components/puppyfetch/PuppyFetchBoard'
 import { puzzles } from './data/puzzles'
 
 const envIndex = parseInt(import.meta.env.VITE_PUZZLE_INDEX, 10)
@@ -90,6 +91,8 @@ function App() {
           <TriviaBoard key={`trivia-${gameKey}`} />
         ) : activeGame === 'memory' ? (
           <MemoryBoard key={`memory-${gameKey}`} />
+        ) : activeGame === 'puppyfetch' ? (
+          <PuppyFetchBoard key={`puppyfetch-${gameKey}`} />
         ) : activeGame === 'typerace' ? (
           <TypeRaceBoard key={`typerace-${gameKey}`} />
         ) : activeGame === 'wordsearch' ? (
