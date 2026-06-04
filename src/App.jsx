@@ -30,6 +30,7 @@ import ColourClashBoard from './components/colourclash/ColourClashBoard'
 import FlipFlopBoard from './components/flipflop/FlipFlopBoard'
 import DiceRollBoard from './components/diceroll/DiceRollBoard'
 import PuppyFetchBoard from './components/puppyfetch/PuppyFetchBoard'
+import ChessBoard from './components/chess/ChessBoard'
 import { puzzles } from './data/puzzles'
 
 const envIndex = parseInt(import.meta.env.VITE_PUZZLE_INDEX, 10)
@@ -125,6 +126,8 @@ function App() {
           <FlipFlopBoard key={`flipflop-${gameKey}`} />
         ) : activeGame === 'diceroll' ? (
           <DiceRollBoard key={`diceroll-${gameKey}`} />
+        ) : activeGame === 'chess' ? (
+          <ChessBoard key={`chess-${gameKey}`} />
         ) : (
           <SudokuBoard key={`sudoku-${gameKey}`} />
         )}
