@@ -132,6 +132,13 @@ const GAMES = [
     description: 'Beat the AI in this classic game',
     color: '#0a84ff',
   },
+  {
+    id: 'barrysblitz',
+    emoji: '⚡',
+    name: "Barry's Blitz",
+    description: 'Race against time to match words to categories',
+    color: '#ff3b30',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
@@ -174,4 +181,3 @@ export default function GamePicker({ onGameSelect }) {
     </div>
   )
 }
-
