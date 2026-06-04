@@ -188,6 +188,13 @@ const GAMES = [
     description: 'Roll two dice and try to hit the target sum',
     color: '#ff3b30',
   },
+  {
+    id: 'chess',
+    emoji: '♟️',
+    name: 'Chess',
+    description: 'Play the classic game of chess against a friend',
+    color: '#8b7355',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
