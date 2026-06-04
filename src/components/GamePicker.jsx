@@ -70,6 +70,13 @@ const GAMES = [
     color: '#0a84ff',
   },
   {
+    id: 'puppyfetch',
+    emoji: '🐕',
+    name: 'Puppy Fetch',
+    description: 'Match all the dog breed pairs to get treats',
+    color: '#d4a574',
+  },
+  {
     id: 'typerace',
     emoji: '⌨️',
     name: 'Type Race',
