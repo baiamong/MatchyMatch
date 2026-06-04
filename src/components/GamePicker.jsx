@@ -121,8 +121,8 @@ const GAMES = [
   {
     id: 'minesweeper',
     emoji: '💣',
-    name: 'Minesweeper',
-    description: 'Clear the minefield without hitting a bomb',
+    name: "Ryanfield",
+    description: "Clear Ryan's field without hitting a bomb",
     color: '#2e7d32',
   },
   {

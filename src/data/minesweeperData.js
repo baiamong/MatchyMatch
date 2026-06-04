@@ -1,5 +1,5 @@
 /**
- * Minesweeper game logic helpers.
+ * Ryanfield game logic helpers.
  */
 
 export const DIFFICULTIES = [
@@ -152,7 +152,7 @@ export function flagsRemaining(grid, mineCount) {
 }
 
 /**
- * Adjacency number colours (classic Minesweeper palette).
+ * Adjacency number colours (classic Ryanfield palette).
  */
 export const ADJ_COLORS = {
   1: '#1a73e8',
