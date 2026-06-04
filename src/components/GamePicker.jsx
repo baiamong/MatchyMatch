@@ -160,6 +160,13 @@ const GAMES = [
     description: "Tap in the nick of time — land the marker in the green zone!",
     color: '#5e5ce6',
   },
+  {
+    id: 'colourclash',
+    emoji: '🎨',
+    name: 'Colour Clash',
+    description: 'Tap the ink colour, not the word — beat the Stroop effect!',
+    color: '#ff2d55',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
