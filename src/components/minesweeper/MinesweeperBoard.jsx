@@ -184,7 +184,7 @@ export default function MinesweeperBoard() {
               lineHeight: 1,
             }}
           >
-            Minesweeper
+            Ryanfield
           </h1>
           <p style={{ fontSize: '0.7rem', color: 'var(--label-tertiary)' }}>
             Right-click / long-press to flag a mine
