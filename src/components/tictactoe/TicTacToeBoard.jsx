@@ -322,6 +322,19 @@ export default function TicTacToeBoard() {
   // ── Playing screen ───────────────────────────────────────────────
   return (
     <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto px-4 sm:px-6 pt-4 pb-12">
+      {/* Title */}
+      <h1
+        style={{
+          fontSize: '1.5rem',
+          fontWeight: 700,
+          letterSpacing: '-0.02em',
+          color: 'var(--label-primary)',
+          textAlign: 'center',
+        }}
+      >
+        Tic Tac Toe with Brian 🧠
+      </h1>
+
       {/* Stats */}
       <StatsBar playerWins={playerWins} aiWins={aiWins} draws={draws} />
 
@@ -368,7 +381,7 @@ export default function TicTacToeBoard() {
           maxWidth: 300,
         }}
       >
-        Beat the AI and rack up wins. Can you get a perfect score?
+        Use your brain to beat Brian! Can you get a perfect score?
       </p>
 
       {/* New game button */}
