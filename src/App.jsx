@@ -26,6 +26,7 @@ import BarrysBlitz from './components/BarrysBlitz'
 import GregsEggBoard from './components/gregsEgg/GregsEggBoard'
 import NathanielNinjaBoard from './components/nathanielninja/NathanielNinjaBoard'
 import NickOfTTimeBoard from './components/nickofttime/NickOfTTimeBoard'
+import ColourClashBoard from './components/colourclash/ColourClashBoard'
 import { puzzles } from './data/puzzles'
 
 const envIndex = parseInt(import.meta.env.VITE_PUZZLE_INDEX, 10)
@@ -113,6 +114,8 @@ function App() {
           <NathanielNinjaBoard key={`nathanielninja-${gameKey}`} />
         ) : activeGame === 'nickofttime' ? (
           <NickOfTTimeBoard key={`nickofttime-${gameKey}`} />
+        ) : activeGame === 'colourclash' ? (
+          <ColourClashBoard key={`colourclash-${gameKey}`} />
         ) : (
           <SudokuBoard key={`sudoku-${gameKey}`} />
         )}
