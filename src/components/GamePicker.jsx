@@ -77,6 +77,13 @@ const GAMES = [
     color: '#d4a574',
   },
   {
+    id: 'catmatch',
+    emoji: '🐱',
+    name: 'Cat Match',
+    description: 'Match all the kitties in the fewest moves',
+    color: '#ff6b6b',
+  },
+  {
     id: 'typerace',
     emoji: '⌨️',
     name: 'Type Race',
