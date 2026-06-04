@@ -23,6 +23,7 @@ import Game2048Board from './components/game2048/Game2048Board'
 import MinesweeperBoard from './components/minesweeper/MinesweeperBoard'
 import TicTacToeBoard from './components/tictactoe/TicTacToeBoard'
 import BarrysBlitz from './components/BarrysBlitz'
+import GregsEggBoard from './components/gregsEgg/GregsEggBoard'
 import { puzzles } from './data/puzzles'
 
 const envIndex = parseInt(import.meta.env.VITE_PUZZLE_INDEX, 10)
@@ -104,6 +105,8 @@ function App() {
           <TicTacToeBoard key={`tictactoe-${gameKey}`} />
         ) : activeGame === 'barrysblitz' ? (
           <BarrysBlitz key={`barrysblitz-${gameKey}`} />
+        ) : activeGame === 'gregsegg' ? (
+          <GregsEggBoard key={`gregsegg-${gameKey}`} />
         ) : (
           <SudokuBoard key={`sudoku-${gameKey}`} />
         )}

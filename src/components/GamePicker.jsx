@@ -139,6 +139,13 @@ const GAMES = [
     description: 'Race against time to match words to categories',
     color: '#ff3b30',
   },
+  {
+    id: 'gregsegg',
+    emoji: '🥚',
+    name: "Greg's Egg",
+    description: "Tap Greg's eggs before they hatch — timing is everything!",
+    color: '#f4a22d',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
