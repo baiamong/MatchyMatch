@@ -153,6 +153,13 @@ const GAMES = [
     description: 'Identify numbers quickly before time runs out!',
     color: '#0a84ff',
   },
+  {
+    id: 'nickofttime',
+    emoji: '⏱️',
+    name: "Nick of T-Time",
+    description: "Tap in the nick of time — land the marker in the green zone!",
+    color: '#5e5ce6',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {

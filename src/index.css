@@ -510,3 +510,21 @@ body {
   background: var(--separator-opaque);
   border-radius: 3px;
 }
+
+/* ── Nick of T-Time animations ───────────────────────────────────── */
+@keyframes nick-flash {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes nick-badge {
+  0%   { transform: scale(0.7); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes nick-countdown {
+  0%   { transform: scale(1.4); opacity: 0; }
+  40%  { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
