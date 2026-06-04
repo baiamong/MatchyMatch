@@ -167,6 +167,13 @@ const GAMES = [
     description: 'Tap the ink colour, not the word — beat the Stroop effect!',
     color: '#ff2d55',
   },
+  {
+    id: 'flipflop',
+    emoji: '🎴',
+    name: 'Flip Flop',
+    description: 'Match all the fruit pairs in the fewest moves',
+    color: '#ff9f0a',
+  },
 ]
 
 export default function GamePicker({ onGameSelect }) {
