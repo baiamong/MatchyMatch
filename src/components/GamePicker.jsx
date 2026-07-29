@@ -202,7 +202,14 @@ const GAMES = [
     description: 'Predict heads or tails and test your luck!',
     color: '#ffd60a',
   },
-  {
+    {
+    id: 'kennykeno',
+    emoji: '🎰',
+    name: "Kenny's Keno",
+    description: 'Pick numbers and match them to the draw!',
+    color: '#ffd60a',
+  },
+{
     id: 'chess',
     emoji: '♟️',
     name: 'Chess',
