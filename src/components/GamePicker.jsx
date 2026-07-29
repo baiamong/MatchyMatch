@@ -196,6 +196,13 @@ const GAMES = [
     color: '#ff3b30',
   },
   {
+    id: 'flipcoin',
+    emoji: '🪙',
+    name: 'Flip Coin',
+    description: 'Predict heads or tails and test your luck!',
+    color: '#ffd60a',
+  },
+  {
     id: 'chess',
     emoji: '♟️',
     name: 'Chess',
