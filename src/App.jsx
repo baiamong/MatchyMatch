@@ -133,7 +133,7 @@ function App() {
           <DiceRollBoard key={`diceroll-${gameKey}`} />
         ) : activeGame === 'flipcoin' ? (
           <FlipCoinBoard key={`flipcoin-${gameKey}`} />
-        ) :         ) : activeGame === 'kennykeno' ? (
+        ) : activeGame === 'kennykeno' ? (
           <KennyKenoBoard key={`kennykeno-${gameKey}`} />
         ) : activeGame === 'chess' ? (
           <ChessBoard key={`chess-${gameKey}`} />
