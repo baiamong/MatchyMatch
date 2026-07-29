@@ -29,6 +29,7 @@ import NickOfTTimeBoard from './components/nickofttime/NickOfTTimeBoard'
 import ColourClashBoard from './components/colourclash/ColourClashBoard'
 import FlipFlopBoard from './components/flipflop/FlipFlopBoard'
 import DiceRollBoard from './components/diceroll/DiceRollBoard'
+import FlipCoinBoard from './components/flipcoin/FlipCoinBoard'
 import PuppyFetchBoard from './components/puppyfetch/PuppyFetchBoard'
 import CatMatchBoard from './components/catmatch/CatMatchBoard'
 import ChessBoard from './components/chess/ChessBoard'
@@ -129,6 +130,8 @@ function App() {
           <FlipFlopBoard key={`flipflop-${gameKey}`} />
         ) : activeGame === 'diceroll' ? (
           <DiceRollBoard key={`diceroll-${gameKey}`} />
+        ) : activeGame === 'flipcoin' ? (
+          <FlipCoinBoard key={`flipcoin-${gameKey}`} />
         ) : activeGame === 'chess' ? (
           <ChessBoard key={`chess-${gameKey}`} />
         ) : (
