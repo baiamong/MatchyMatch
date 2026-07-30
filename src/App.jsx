@@ -37,11 +37,7 @@ import KennyKenoBoard from './components/kennykeno/KennyKenoBoard'
 import RochellesSpinnerBoard from './components/rochellespinner/RochellesSpinnerBoard'
 import MartiniMatchBoard from './components/martinimatch/MartiniMatchBoard'
 import ManjualBoard from './components/manjual/ManjualBoard'
-<<<<<<< HEAD
-import GreatWallBoard from './components/greatwall/GreatWallBoard'
-=======
 import LatchamBoard from './components/latcham/LatchamBoard'
->>>>>>> 564a06a (Checkpoint: build passing)
 import { puzzles } from './data/puzzles'
 
 const envIndex = parseInt(import.meta.env.VITE_PUZZLE_INDEX, 10)
@@ -151,13 +147,8 @@ function App() {
           <MartiniMatchBoard key={`martinimatch-${gameKey}`} />
         ) : activeGame === 'manjual' ? (
           <ManjualBoard key={`manjual-${gameKey}`} />
-<<<<<<< HEAD
-        ) : activeGame === 'greatwall' ? (
-          <GreatWallBoard key={`greatwall-${gameKey}`} />
-=======
         ) : activeGame === 'latcham' ? (
           <LatchamBoard key={`latcham-${gameKey}`} />
->>>>>>> 564a06a (Checkpoint: build passing)
         ) : (
           <SudokuBoard key={`sudoku-${gameKey}`} />
         )}

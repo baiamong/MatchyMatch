@@ -30,6 +30,7 @@ export default function LatchamBoard() {
 
   const scoreRef = useRef(0)
   const spawnTimerRef = useRef(null)
+  const spawnCellRef = useRef(null) // holds latest spawnCell to allow self-scheduling
   const countdownRef = useRef(null)
   const cellTimersRef = useRef({}) // cellIndex -> timeout id
 
@@ -76,10 +77,15 @@ export default function LatchamBoard() {
       return next
     })
 
-    // Schedule next spawn
+    // Schedule next spawn via ref to avoid self-reference lint error
     const interval = getSpawnInterval(scoreRef.current)
-    spawnTimerRef.current = setTimeout(spawnCell, interval)
+    spawnTimerRef.current = setTimeout(() => spawnCellRef.current?.(), interval)
   }, [expireCell])
+
+  // Keep spawnCellRef in sync with the latest spawnCell callback
+  useEffect(() => {
+    spawnCellRef.current = spawnCell
+  }, [spawnCell])
 
   const startGame = useCallback(() => {
     clearAllTimers()
@@ -92,11 +98,22 @@ export default function LatchamBoard() {
     setMissedFlash(null)
     setPhase('playing')
 
-    // Start countdown
+    // Start countdown — end game when time reaches 0
     countdownRef.current = setInterval(() => {
       setTimeLeft((t) => {
         if (t <= 1) {
           clearInterval(countdownRef.current)
+          clearTimeout(spawnTimerRef.current)
+          Object.values(cellTimersRef.current).forEach(clearTimeout)
+          cellTimersRef.current = {}
+          setActiveCells(new Set())
+          setPhase('gameover')
+          if (scoreRef.current >= GOOD_SCORE) {
+            setShowConfetti(true)
+            setMessage(`🎉 Amazing! You latched ${scoreRef.current}!`)
+          } else {
+            setMessage(`Time's up! You latched ${scoreRef.current} — can you do better?`)
+          }
           return 0
         }
         return t - 1
@@ -106,21 +123,6 @@ export default function LatchamBoard() {
     // Start spawning
     spawnTimerRef.current = setTimeout(spawnCell, 600)
   }, [clearAllTimers, spawnCell])
-
-  // End game when time runs out
-  useEffect(() => {
-    if (phase === 'playing' && timeLeft === 0) {
-      clearAllTimers()
-      setActiveCells(new Set())
-      setPhase('gameover')
-      if (scoreRef.current >= GOOD_SCORE) {
-        setShowConfetti(true)
-        setMessage(`🎉 Amazing! You latched ${scoreRef.current}!`)
-      } else {
-        setMessage(`Time's up! You latched ${scoreRef.current} — can you do better?`)
-      }
-    }
-  }, [timeLeft, phase, clearAllTimers])
 
   // Cleanup on unmount
   useEffect(() => {
