@@ -43,7 +43,7 @@ describe('useDarkMode', () => {
     });
 
     const stored = localStorage.getItem('puzzlr-dark-mode');
-    expect(stored).toBe(String(!result.current.dark));
+    expect(stored).toBe(String(result.current.dark));
   });
 
   it('should add dark class to document element when dark mode is on', () => {

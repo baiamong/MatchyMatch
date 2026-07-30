@@ -139,7 +139,7 @@ export default function Game2048Board() {
 
   // Persist best score
   useEffect(() => {
-    try { localStorage.setItem("2048_best", String(best)); } catch {}
+    try { localStorage.setItem("2048_best", String(best)); } catch { /* localStorage unavailable, e.g. private browsing */ }
   }, [best]);
 
   const move = useCallback(
