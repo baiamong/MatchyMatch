@@ -189,17 +189,15 @@ const GAMES = [
   },
   {
     id: 'rochellespinner',
-    emoji: '🎡',
     name: "Rochelle's Spinner",
     description: 'Spin the wheel and try your luck!',
-    color: '#e91e63',
+    tag: 'Chaos',
   },
   {
     id: 'martinimatch',
-    emoji: '🍸',
     name: 'Martini Match',
     description: 'Match cocktail names with their ingredients!',
-    color: '#d4a574',
+    tag: 'Memory',
   },
 ]
 
