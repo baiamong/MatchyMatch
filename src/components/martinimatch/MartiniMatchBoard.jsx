@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import Toast from '../Toast'
 import Confetti from '../Confetti'
 import './MartiniMatch.css'
@@ -12,8 +12,29 @@ const COCKTAILS = [
   { id: 6, name: 'Piña Colada', ingredient: 'Rum & Coconut', emoji: '🥥' },
 ]
 
+const createInitialCards = () => {
+  const gameCards = []
+  COCKTAILS.forEach((cocktail) => {
+    gameCards.push({
+      id: `name-${cocktail.id}`,
+      type: 'name',
+      cocktailId: cocktail.id,
+      content: cocktail.name,
+      emoji: cocktail.emoji,
+    })
+    gameCards.push({
+      id: `ingredient-${cocktail.id}`,
+      type: 'ingredient',
+      cocktailId: cocktail.id,
+      content: cocktail.ingredient,
+      emoji: cocktail.emoji,
+    })
+  })
+  return gameCards.sort(() => Math.random() - 0.5)
+}
+
 export default function MartiniMatchBoard() {
-  const [cards, setCards] = useState([])
+  const [cards, setCards] = useState(createInitialCards)
   const [flipped, setFlipped] = useState(new Set())
   const [matched, setMatched] = useState(new Set())
   const [moves, setMoves] = useState(0)
@@ -21,41 +42,15 @@ export default function MartiniMatchBoard() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [gameWon, setGameWon] = useState(false)
 
-  // Initialize game
-  useEffect(() => {
-    initializeGame()
-  }, [])
-
-  const initializeGame = () => {
-    // Create pairs: cocktail name + ingredient
-    const gameCards = []
-    COCKTAILS.forEach((cocktail) => {
-      gameCards.push({
-        id: `name-${cocktail.id}`,
-        type: 'name',
-        cocktailId: cocktail.id,
-        content: cocktail.name,
-        emoji: cocktail.emoji,
-      })
-      gameCards.push({
-        id: `ingredient-${cocktail.id}`,
-        type: 'ingredient',
-        cocktailId: cocktail.id,
-        content: cocktail.ingredient,
-        emoji: cocktail.emoji,
-      })
-    })
-
-    // Shuffle
-    const shuffled = gameCards.sort(() => Math.random() - 0.5)
-    setCards(shuffled)
+  const initializeGame = useCallback(() => {
+    setCards(createInitialCards())
     setFlipped(new Set())
     setMatched(new Set())
     setMoves(0)
     setMessage('')
     setShowConfetti(false)
     setGameWon(false)
-  }
+  }, [])
 
   const handleCardClick = (cardId) => {
     if (flipped.has(cardId) || matched.has(cardId) || gameWon) return
