@@ -199,6 +199,12 @@ const GAMES = [
     description: 'Match cocktail names with their ingredients!',
     tag: 'Memory',
   },
+  {
+    id: 'manjual',
+    name: 'Manju-al',
+    description: 'Guess manju-related words with hints!',
+    tag: 'Word',
+  },
 ]
 
 // Two-color gradients cycled across the grid, adapted from the Arcade
