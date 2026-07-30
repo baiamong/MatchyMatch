@@ -139,31 +139,38 @@
 }
 
 /* ── Reset & base ────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Scoped to Tailwind's "base" layer (rather than left unlayered) so
+   that Tailwind's spacing/utility classes — which live in the
+   "utilities" layer — can actually override this reset. Unlayered CSS
+   always wins over layered CSS regardless of specificity, so leaving
+   this unlayered silently zeroed out every p-*/m-* utility in the app. */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 
-body {
-  font-family: var(--font-system);
-  background-color: var(--bg-base);
-  color: var(--label-primary);
-  min-height: 100dvh;
-  overflow-x: hidden;
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
+  body {
+    font-family: var(--font-system);
+    background-color: var(--bg-base);
+    color: var(--label-primary);
+    min-height: 100dvh;
+    overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
 
-#root {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
+  #root {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* ── Typography helpers ──────────────────────────────────────────── */
