@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* ── Brand type (WWT Roobert) ────────────────────────────────────── */
+@font-face { font-family: 'Roobert'; src: url('/fonts/Roobert-Light.otf') format('opentype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Roobert'; src: url('/fonts/Roobert-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Roobert'; src: url('/fonts/Roobert-SemiBold.otf') format('opentype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Roobert'; src: url('/fonts/Roobert-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Roobert'; src: url('/fonts/Roobert-Heavy.otf') format('opentype'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'Roobert Mono'; src: url('/fonts/RoobertMono-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Roobert Mono'; src: url('/fonts/RoobertMono-SemiBold.otf') format('opentype'); font-weight: 600; font-display: swap; }
+
 /* ── Apple-inspired design tokens ───────────────────────────────── */
 :root {
   /* Backgrounds */
@@ -47,9 +56,9 @@
   --radius-full: 9999px;
 
   /* Typography */
-  --font-system: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
-  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  --font-mono-display: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-system: 'Roobert', -apple-system, BlinkMacSystemFont, system-ui, 'Helvetica Neue', sans-serif;
+  --font-display: 'Roobert', -apple-system, BlinkMacSystemFont, system-ui, 'Helvetica Neue', sans-serif;
+  --font-mono-display: 'Roobert Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* Arcade hub palette (GamePicker) */
   --arcade-bg:          #ffffff;
@@ -696,8 +705,8 @@ select:focus-visible,
 
 .arcade-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+  gap: 24px;
 }
 
 .arcade-card {
@@ -706,16 +715,17 @@ select:focus-visible,
   flex-direction: column;
   background: var(--arcade-surface);
   border: 1px solid var(--arcade-border);
-  border-radius: var(--radius-lg);
-  padding: 12px 12px 20px;
+  border-radius: 12px;
+  padding: 10px 10px 18px;
   cursor: pointer;
   text-align: left;
+  transform: rotate(var(--card-rot, 0deg));
   transition: transform 0.2s cubic-bezier(0.2,0,0,1),
               box-shadow 0.2s cubic-bezier(0.2,0,0,1),
               border-color 0.2s ease;
 }
 .arcade-card:hover {
-  transform: translateY(-6px) rotate(0deg) scale(1.015);
+  transform: translateY(-8px) rotate(0deg) scale(1.02);
   box-shadow: var(--arcade-card-shadow-hover);
   border-color: var(--arcade-border-hover);
 }
@@ -725,8 +735,8 @@ select:focus-visible,
 
 .arcade-card__tile {
   position: relative;
-  height: 144px;
-  border-radius: var(--radius-md);
+  height: 152px;
+  border-radius: 8px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -742,7 +752,7 @@ select:focus-visible,
 }
 .arcade-card__initials {
   position: relative;
-  font-size: 44px;
+  font-size: 58px;
   font-weight: 900;
   letter-spacing: -0.04em;
   color: rgba(255,255,255,0.96);
@@ -785,15 +795,33 @@ select:focus-visible,
 }
 
 .arcade-card__title {
-  margin: 18px 10px 0;
-  font-size: 17px;
+  margin: 16px 0 0 8px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--arcade-text);
 }
-.arcade-card__desc {
-  margin: 8px 10px 0;
+.arcade-card__new {
+  margin-top: 16px;
+  font-family: var(--font-mono-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--arcade-pink);
+  border-radius: 4px;
+  padding: 3px 6px;
+}
+.arcade-card__byline {
+  margin: 6px 8px 0;
   font-size: 13px;
+  font-weight: 600;
+  color: var(--arcade-text-faint);
+}
+.arcade-card__desc {
+  margin: 10px 8px 0;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--arcade-text-muted);
 }
@@ -804,6 +832,137 @@ select:focus-visible,
   border: 1px dashed var(--arcade-border-hover);
   border-radius: var(--radius-md);
   background: var(--arcade-bg-subtle);
+}
+
+/* ── Jump back in (recently played) ──────────────────────────────── */
+.arcade-recent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 8px;
+  background: var(--arcade-surface);
+  border: 1px solid var(--arcade-border);
+  border-radius: 9999px;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-system);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--arcade-text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.arcade-recent:hover {
+  border-color: var(--arcade-blue);
+  box-shadow: -6px 6px 16px rgba(28,0,135,0.08);
+}
+.arcade-recent__avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+/* ── Preview modal ───────────────────────────────────────────────── */
+@keyframes arc-pop {
+  0%   { transform: scale(0.94) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.arcade-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(10,11,25,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.arcade-modal {
+  width: 620px;
+  max-width: 100%;
+  background: var(--arcade-surface);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: -16px 16px 32px rgba(28,0,135,0.20), -8px 8px 24px rgba(0,0,0,0.06);
+  animation: arc-pop 200ms cubic-bezier(0.2,0,0,1) both;
+}
+
+.arcade-modal__art {
+  position: relative;
+  height: 196px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arcade-modal__initials {
+  font-size: 84px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: rgba(255,255,255,0.96);
+  text-shadow: 0 2px 16px rgba(0,0,0,0.2);
+}
+.arcade-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.9);
+  color: #0a0b19;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.arcade-modal__close:hover {
+  background: #ffffff;
+}
+
+.arcade-modal__body {
+  padding: 28px 32px 32px;
+}
+.arcade-modal__title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--arcade-text);
+}
+.arcade-modal__tag {
+  font-family: var(--font-mono-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--arcade-indigo);
+  background: var(--arcade-blue-tint);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+.arcade-modal__byline {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--arcade-text-faint);
+}
+.arcade-modal__desc {
+  margin: 18px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--arcade-text-muted);
 }
 
 /* ── Scrollbar ───────────────────────────────────────────────────── */

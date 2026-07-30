@@ -102,7 +102,7 @@ export default function Header({ activeGame, onGoHome, dark, onToggleDark }) {
               backgroundClip: "text",
             }}
           >
-            Puzzlr
+            The Arcade
           </h1>
         </button>
 
