@@ -282,10 +282,10 @@ export default function GamePicker({ onGameSelect }) {
   return (
     <div className="w-full">
       {/* Hero */}
-      <div className="arcade-hero -mx-4 sm:-mx-6 px-4 sm:px-6 py-10">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-end justify-between gap-8">
+      <div className="arcade-hero -mx-4 sm:-mx-8 px-4 sm:px-8 py-12 sm:py-16">
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2.5 mb-4 flex-wrap">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <span className="arcade-badge">AI Bootcamp</span>
               <span className="arcade-eyebrow">build · ship · play</span>
             </div>
@@ -303,13 +303,13 @@ export default function GamePicker({ onGameSelect }) {
               The <span style={{ fontWeight: 900, color: 'var(--arcade-blue)' }}>Arcade</span>
             </h1>
             <p
-              className="mt-4"
+              className="mt-5"
               style={{ fontSize: 16, lineHeight: 1.5, color: 'var(--arcade-text-muted)' }}
             >
               30 tiny games, zero instructions, mandatory puns.
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-4">
             <div className="arcade-stat">
               <div className="arcade-stat__num" style={{ color: 'var(--arcade-indigo)' }}>{GAMES.length}</div>
               <div className="arcade-stat__label">games</div>
@@ -323,26 +323,59 @@ export default function GamePicker({ onGameSelect }) {
       </div>
 
       {/* Toolbar */}
-      <div className="arcade-toolbar -mx-4 sm:-mx-6 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto py-3 flex items-center gap-3 flex-wrap">
-          <div className="relative flex-none w-full sm:w-[260px]">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search games"
-              className="arcade-search"
-            />
-            <svg
-              width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="var(--arcade-text-faint)" strokeWidth="2" strokeLinecap="round"
-              style={{ position: 'absolute', left: 15, top: 14 }}
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3.5-3.5" />
-            </svg>
+      <div className="arcade-toolbar -mx-4 sm:-mx-8 px-4 sm:px-8">
+        <div className="max-w-5xl mx-auto py-4 flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
+            <div className="relative w-full sm:w-[280px]">
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search games"
+                className="arcade-search"
+              />
+              <svg
+                width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="var(--arcade-text-faint)" strokeWidth="2" strokeLinecap="round"
+                style={{ position: 'absolute', left: 15, top: 14 }}
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3.5-3.5" />
+              </svg>
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                onClick={() => setFavOnly((v) => !v)}
+                className={`arcade-btn ${favOnly ? 'arcade-btn--fav-active' : ''}`}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill={favOnly ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+                  <path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.2-5.4-2.9-5.4 2.9 1-6.2L3.2 10l6.1-.9z" />
+                </svg>
+                Favorites
+              </button>
+
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                className="arcade-select"
+              >
+                <option value="default">Default order</option>
+                <option value="az">A – Z</option>
+              </select>
+
+              <button onClick={handleSurprise} className="arcade-btn arcade-btn--primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3.5" y="3.5" width="17" height="17" rx="4" />
+                  <circle cx="8.5" cy="8.5" r="1.4" fill="currentColor" />
+                  <circle cx="15.5" cy="15.5" r="1.4" fill="currentColor" />
+                  <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+                </svg>
+                Surprise me
+              </button>
+            </div>
           </div>
 
-          <div className="flex gap-1.5 flex-wrap flex-1">
+          <div className="arcade-chip-row">
             {CATEGORIES.map((c) => (
               <button
                 key={c}
@@ -353,40 +386,11 @@ export default function GamePicker({ onGameSelect }) {
               </button>
             ))}
           </div>
-
-          <button
-            onClick={() => setFavOnly((v) => !v)}
-            className={`arcade-btn ${favOnly ? 'arcade-btn--fav-active' : ''}`}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill={favOnly ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
-              <path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.2-5.4-2.9-5.4 2.9 1-6.2L3.2 10l6.1-.9z" />
-            </svg>
-            Favorites
-          </button>
-
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="arcade-select"
-          >
-            <option value="default">Default order</option>
-            <option value="az">A – Z</option>
-          </select>
-
-          <button onClick={handleSurprise} className="arcade-btn arcade-btn--primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3.5" y="3.5" width="17" height="17" rx="4" />
-              <circle cx="8.5" cy="8.5" r="1.4" fill="currentColor" />
-              <circle cx="15.5" cy="15.5" r="1.4" fill="currentColor" />
-              <circle cx="12" cy="12" r="1.4" fill="currentColor" />
-            </svg>
-            Surprise me
-          </button>
         </div>
       </div>
 
       {/* Grid */}
-      <div className="max-w-5xl mx-auto py-6">
+      <div className="max-w-5xl mx-auto py-10">
         {filtered.length === 0 ? (
           <div className="arcade-empty">
             <div style={{ fontSize: 22, fontWeight: 300, color: 'var(--arcade-text)' }}>No games match that.</div>

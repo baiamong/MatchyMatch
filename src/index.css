@@ -556,6 +556,24 @@ body {
   background: color-mix(in srgb, var(--arcade-bg) 88%, transparent);
   backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--arcade-border);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 8px 24px -16px rgba(0,0,0,0.12);
+}
+
+/* Category chips scroll horizontally instead of wrapping into a messy
+   multi-row cascade, especially on narrow viewports. */
+.arcade-chip-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 2px;
+  margin: 0 -4px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.arcade-chip-row::-webkit-scrollbar {
+  display: none;
 }
 
 .arcade-search {
@@ -576,6 +594,8 @@ body {
 }
 
 .arcade-chip {
+  flex-shrink: 0;
+  white-space: nowrap;
   height: 34px;
   padding: 0 14px;
   font-size: 13px;
@@ -654,8 +674,8 @@ body {
 
 .arcade-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
 }
 
 .arcade-card {
@@ -664,8 +684,8 @@ body {
   flex-direction: column;
   background: var(--arcade-surface);
   border: 1px solid var(--arcade-border);
-  border-radius: var(--radius-md);
-  padding: 10px 10px 16px;
+  border-radius: var(--radius-lg);
+  padding: 12px 12px 20px;
   cursor: pointer;
   text-align: left;
   transition: transform 0.2s cubic-bezier(0.2,0,0,1),
@@ -683,8 +703,8 @@ body {
 
 .arcade-card__tile {
   position: relative;
-  height: 120px;
-  border-radius: var(--radius-sm);
+  height: 144px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -743,16 +763,16 @@ body {
 }
 
 .arcade-card__title {
-  margin: 14px 8px 0;
+  margin: 18px 10px 0;
   font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--arcade-text);
 }
 .arcade-card__desc {
-  margin: 6px 8px 0;
+  margin: 8px 10px 0;
   font-size: 13px;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--arcade-text-muted);
 }
 
