@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import Toast from '../Toast'
 import Confetti from '../Confetti'
 
@@ -27,7 +27,7 @@ export default function ManjualBoard() {
 
   const MAX_WRONG = 6
   const currentWord = MANJU_WORDS[currentWordIndex]
-  const wordLetters = new Set(currentWord.word)
+  const wordLetters = useMemo(() => new Set(currentWord.word), [currentWord.word])
   const isWordComplete = [...wordLetters].every((l) => guessedLetters.has(l))
 
   useEffect(() => {
