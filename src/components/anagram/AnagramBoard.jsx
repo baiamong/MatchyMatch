@@ -269,10 +269,48 @@ function Game({ onNewGame }) {
     return stopTimer;
   }, [gamePhase, roundIndex, startTimer, stopTimer]);
 
-  // Time ran out
+  // Declared here (rather than after the effects below, where the flow
+  // reads more naturally) so both effects reference an already-declared
+  // value instead of a forward reference.
+  const advanceRound = (result) => {
+    setRoundResults((prev) => {
+      const next = [...prev, result];
+      const nextIndex = roundIndex + 1;
+      if (nextIndex >= ROUNDS) {
+        setTimeout(() => setGamePhase("done"), result === "correct" ? 400 : 100);
+      } else {
+        setTimeout(() => {
+          setRoundIndex(nextIndex);
+          setTimeLeft(TIME_LIMIT);
+          setRevealState(null);
+          setAnswerSlots([]);
+          setScrambledSlots(
+            rounds[nextIndex].scrambled
+              .split("")
+              .map((l, i) => ({ letter: l, id: i, used: false }))
+          );
+          setGamePhase("playing");
+        }, result === "correct" ? 600 : 200);
+      }
+      return next;
+    });
+  };
+
+  const handleSkip = useCallback((timedOut = false) => {
+    if (gamePhase !== "playing") return;
+    stopTimer();
+    if (!timedOut) setToast("Skipped!");
+    else setToast(`Time's up! It was ${currentRound.word}`);
+    advanceRound("skipped");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gamePhase, currentRound, stopTimer]);
+
+  // Time ran out. Deferred so the setState calls inside handleSkip don't
+  // run synchronously within the effect body.
   useEffect(() => {
     if (timeLeft === 0 && gamePhase === "playing") {
-      handleSkip(true);
+      const id = setTimeout(() => handleSkip(true), 0);
+      return () => clearTimeout(id);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, gamePhase]);
@@ -302,7 +340,9 @@ function Game({ onNewGame }) {
     );
   };
 
-  // Auto-submit when all letters placed
+  // Auto-submit when all letters placed. The state updates are deferred
+  // (rather than called directly in the effect body) so they don't run
+  // synchronously within the effect.
   useEffect(() => {
     if (
       gamePhase === "playing" &&
@@ -310,58 +350,28 @@ function Game({ onNewGame }) {
       answerSlots.length === currentRound.word.length
     ) {
       const attempt = answerSlots.map((s) => s.letter).join("");
-      if (attempt === currentRound.word) {
-        stopTimer();
-        const pts = calcPoints(timeLeft);
-        setRevealState("correct");
-        setScore((s) => s + pts);
-        setToast(`+${pts} pts`);
-        setTimeout(() => advanceRound("correct"), 1200);
-      } else {
-        setRevealState("wrong");
-        setTimeout(() => {
-          setRevealState(null);
-          // Return all letters to scrambled row
-          setAnswerSlots([]);
-          setScrambledSlots((prev) => prev.map((s) => ({ ...s, used: false })));
-        }, 700);
-      }
+      const id = setTimeout(() => {
+        if (attempt === currentRound.word) {
+          stopTimer();
+          const pts = calcPoints(timeLeft);
+          setRevealState("correct");
+          setScore((s) => s + pts);
+          setToast(`+${pts} pts`);
+          setTimeout(() => advanceRound("correct"), 1200);
+        } else {
+          setRevealState("wrong");
+          setTimeout(() => {
+            setRevealState(null);
+            // Return all letters to scrambled row
+            setAnswerSlots([]);
+            setScrambledSlots((prev) => prev.map((s) => ({ ...s, used: false })));
+          }, 700);
+        }
+      }, 0);
+      return () => clearTimeout(id);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answerSlots]);
-
-  const handleSkip = useCallback((timedOut = false) => {
-    if (gamePhase !== "playing") return;
-    stopTimer();
-    if (!timedOut) setToast("Skipped!");
-    else setToast(`Time's up! It was ${currentRound.word}`);
-    advanceRound("skipped");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gamePhase, currentRound, stopTimer]);
-
-  const advanceRound = (result) => {
-    setRoundResults((prev) => {
-      const next = [...prev, result];
-      const nextIndex = roundIndex + 1;
-      if (nextIndex >= ROUNDS) {
-        setTimeout(() => setGamePhase("done"), result === "correct" ? 400 : 100);
-      } else {
-        setTimeout(() => {
-          setRoundIndex(nextIndex);
-          setTimeLeft(TIME_LIMIT);
-          setRevealState(null);
-          setAnswerSlots([]);
-          setScrambledSlots(
-            rounds[nextIndex].scrambled
-              .split("")
-              .map((l, i) => ({ letter: l, id: i, used: false }))
-          );
-          setGamePhase("playing");
-        }, result === "correct" ? 600 : 200);
-      }
-      return next;
-    });
-  };
 
   const handleClear = () => {
     if (gamePhase !== "playing" || revealState) return;

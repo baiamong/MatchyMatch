@@ -129,6 +129,38 @@ function Game({ entry, onNewGame }) {
 
   const showToast = useCallback((msg) => setToast(msg), []);
 
+  const handleSubmit = useCallback(() => {
+    if (gameState !== "playing") return;
+    if (answer.some((v) => v === null)) {
+      showToast("Fill all the letters first!");
+      return;
+    }
+
+    const guess = answer.map((poolIdx) => scrambled.find((s) => s.poolIndex === poolIdx).letter).join("");
+
+    if (guess === word) {
+      setGameState("won");
+      return;
+    }
+
+    // Wrong
+    const newWrong = wrongGuesses + 1;
+    setWrongGuesses(newWrong);
+    setIsWrong(true);
+    setTimeout(() => setIsWrong(false), 600);
+
+    if (newWrong >= MAX_WRONG) {
+      setGameState("lost");
+      return;
+    }
+
+    const remaining = MAX_WRONG - newWrong;
+    showToast(remaining === 1 ? "Last chance!" : `Not quite — ${remaining} tries left`);
+    // Clear answer for next attempt
+    setTimeout(() => setAnswer(Array(word.length).fill(null)), 400);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState, answer, word, scrambled, wrongGuesses]);
+
   // Keyboard support
   useEffect(() => {
     if (gameState !== "playing") return;
@@ -198,38 +230,6 @@ function Game({ entry, onNewGame }) {
   const handleClear = () => {
     setAnswer(Array(word.length).fill(null));
   };
-
-  const handleSubmit = useCallback(() => {
-    if (gameState !== "playing") return;
-    if (answer.some((v) => v === null)) {
-      showToast("Fill all the letters first!");
-      return;
-    }
-
-    const guess = answer.map((poolIdx) => scrambled.find((s) => s.poolIndex === poolIdx).letter).join("");
-
-    if (guess === word) {
-      setGameState("won");
-      return;
-    }
-
-    // Wrong
-    const newWrong = wrongGuesses + 1;
-    setWrongGuesses(newWrong);
-    setIsWrong(true);
-    setTimeout(() => setIsWrong(false), 600);
-
-    if (newWrong >= MAX_WRONG) {
-      setGameState("lost");
-      return;
-    }
-
-    const remaining = MAX_WRONG - newWrong;
-    showToast(remaining === 1 ? "Last chance!" : `Not quite — ${remaining} tries left`);
-    // Clear answer for next attempt
-    setTimeout(() => setAnswer(Array(word.length).fill(null)), 400);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameState, answer, word, scrambled, wrongGuesses]);
 
   const allFilled = answer.every((v) => v !== null);
   const livesLeft = MAX_WRONG - wrongGuesses;

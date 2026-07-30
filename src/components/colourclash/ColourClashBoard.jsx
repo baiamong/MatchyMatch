@@ -51,13 +51,19 @@ function ColorButton({ color, isCorrect, onClick, disabled }) {
   const [feedback, setFeedback] = useState(null)
 
   useEffect(() => {
-    if (isCorrect === null) {
-      setFeedback(null)
-      return
+    let resetId
+    const id = setTimeout(() => {
+      if (isCorrect === null) {
+        setFeedback(null)
+        return
+      }
+      setFeedback(isCorrect ? 'correct' : 'wrong')
+      resetId = setTimeout(() => setFeedback(null), 300)
+    }, 0)
+    return () => {
+      clearTimeout(id)
+      clearTimeout(resetId)
     }
-    setFeedback(isCorrect ? 'correct' : 'wrong')
-    const timer = setTimeout(() => setFeedback(null), 300)
-    return () => clearTimeout(timer)
   }, [isCorrect])
 
   return (

@@ -232,8 +232,8 @@ export default function NickOfTTimeBoard() {
   useEffect(() => {
     if (phase !== 'countdown') return
     if (countdown === 0) {
-      setPhase('playing')
-      return
+      const id = setTimeout(() => setPhase('playing'), 0)
+      return () => clearTimeout(id)
     }
     const id = setTimeout(() => setCountdown((c) => c - 1), 1000)
     return () => clearTimeout(id)
@@ -242,11 +242,16 @@ export default function NickOfTTimeBoard() {
   // ── Start animation when playing ──────────────────────────────
   useEffect(() => {
     if (phase !== 'playing') return
-    setHit(null)
-    setHitFraction(null)
-    setRoundPoints(0)
-    startAnimation(round)
-    return () => stopAnimation()
+    const id = setTimeout(() => {
+      setHit(null)
+      setHitFraction(null)
+      setRoundPoints(0)
+      startAnimation(round)
+    }, 0)
+    return () => {
+      clearTimeout(id)
+      stopAnimation()
+    }
   }, [phase, round, startAnimation, stopAnimation])
 
   // ── Auto-advance after result ─────────────────────────────────
@@ -281,6 +286,16 @@ export default function NickOfTTimeBoard() {
     setPhase('result')
   }, [phase, stopAnimation])
 
+  const startGame = () => {
+    setRound(0)
+    setResults([])
+    setTotalScore(0)
+    setProgress(0)
+    setHit(null)
+    setCountdown(3)
+    setPhase('countdown')
+  }
+
   // ── Keyboard support ──────────────────────────────────────────
   useEffect(() => {
     const onKey = (e) => {
@@ -293,16 +308,6 @@ export default function NickOfTTimeBoard() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [phase, handleTap])
-
-  const startGame = () => {
-    setRound(0)
-    setResults([])
-    setTotalScore(0)
-    setProgress(0)
-    setHit(null)
-    setCountdown(3)
-    setPhase('countdown')
-  }
 
   // ── Render: Menu ──────────────────────────────────────────────
   if (phase === 'menu') {

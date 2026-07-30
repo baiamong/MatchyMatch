@@ -27,7 +27,8 @@ export default function NathanielNinjaBoard() {
     let opts = [correct, wrong1, wrong2, wrong3]
     // Shuffle
     opts = opts.sort(() => Math.random() - 0.5)
-    setOptions(opts)
+    const id = setTimeout(() => setOptions(opts), 0)
+    return () => clearTimeout(id)
   }, [currentNumber])
 
   // Timer effect

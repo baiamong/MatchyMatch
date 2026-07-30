@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { PUZZLES, getWordCells } from "../../data/wordSearchPuzzles";
 import Toast from "../Toast";
 
@@ -336,23 +336,21 @@ function Game({ puzzle, onPlayAgain, selectedPuzzle, onThemeChange }) {
 
   // Attach global pointerup so drag ends even outside the grid
   const gridRef = useRef(null);
-  const attachedRef = useRef(false);
-  if (!attachedRef.current) {
-    attachedRef.current = true;
-  }
 
-  // Use a stable ref-based global listener
+  // Keep the ref pointed at the latest handlePointerUp so the listener
+  // below never needs to re-attach when its identity changes.
   const handlePointerUpRef = useRef(handlePointerUp);
-  handlePointerUpRef.current = handlePointerUp;
+  useEffect(() => {
+    handlePointerUpRef.current = handlePointerUp;
+  }, [handlePointerUp]);
 
-  // Attach once
-  const listenerRef = useRef(null);
-  if (!listenerRef.current) {
-    listenerRef.current = () => handlePointerUpRef.current();
-    if (typeof window !== "undefined") {
-      window.addEventListener("pointerup", listenerRef.current);
-    }
-  }
+  // Attach the global listener once, after mount, and clean it up on
+  // unmount rather than leaking it.
+  useEffect(() => {
+    const listener = () => handlePointerUpRef.current();
+    window.addEventListener("pointerup", listener);
+    return () => window.removeEventListener("pointerup", listener);
+  }, []);
 
   // ── Hint ─────────────────────────────────────────────────────────
 

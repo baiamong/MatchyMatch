@@ -184,7 +184,9 @@ function Game({ problems, onNewGame }) {
   const [records, setRecords] = useState([]);
 
   const inputRef  = useRef(null);
-  const startTime = useRef(Date.now());
+  // Date.now() is impure, so the ref starts empty and is set in an effect
+  // below (and reset again in handleNext for subsequent questions).
+  const startTime = useRef(null);
 
   const problem = problems[qIndex];
 
@@ -194,6 +196,21 @@ function Game({ problems, onNewGame }) {
     setShaking(true);
     setTimeout(() => setShaking(false), 450);
   };
+
+  const handleTimeout = useCallback(() => {
+    const elapsed = (Date.now() - startTime.current) / 1000;
+    setAnswered(true);
+    setIsCorrect(false);
+    setRecords((prev) => [...prev, { userAnswer: null, timeTaken: null }]);
+    setTotalTime((t) => t + elapsed);
+    triggerShake();
+    showToast("Time's up! ⏰");
+  }, [showToast]);
+
+  // Start the clock for the first question on mount.
+  useEffect(() => {
+    startTime.current = Date.now();
+  }, []);
 
   // Focus input on mount and question change
   useEffect(() => {
@@ -207,26 +224,17 @@ function Game({ problems, onNewGame }) {
     if (answered || gameState !== "playing") return;
 
     if (timeLeft <= 0) {
-      // Time's up — auto-skip
-      handleTimeout();
-      return;
+      // Time's up — auto-skip. Deferred (rather than calling handleTimeout
+      // synchronously) so the resulting setState calls don't run directly
+      // within the effect body.
+      const id = setTimeout(handleTimeout, 0);
+      return () => clearTimeout(id);
     }
 
     const id = setTimeout(() => setTimeLeft((t) => t - 1), 1000);
     return () => clearTimeout(id);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, answered, gameState]);
-
-  const handleTimeout = useCallback(() => {
-    const elapsed = (Date.now() - startTime.current) / 1000;
-    setAnswered(true);
-    setIsCorrect(false);
-    setRecords((prev) => [...prev, { userAnswer: null, timeTaken: null }]);
-    setTotalTime((t) => t + elapsed);
-    triggerShake();
-    showToast("Time's up! ⏰");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showToast]);
 
   const handleSubmit = () => {
     if (answered || input.trim() === "") return;

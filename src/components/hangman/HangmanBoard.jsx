@@ -215,11 +215,14 @@ function Game({ entry, onNewGame }) {
   useEffect(() => {
     if (gameState !== "playing") return;
     const allRevealed = word.split("").every((l) => guessed.has(l));
-    if (allRevealed) {
-      setGameState("won");
-    } else if (wrongCount >= MAX_WRONG) {
-      setGameState("lost");
-    }
+    const id = setTimeout(() => {
+      if (allRevealed) {
+        setGameState("won");
+      } else if (wrongCount >= MAX_WRONG) {
+        setGameState("lost");
+      }
+    }, 0);
+    return () => clearTimeout(id);
   }, [guessed, word, wrongCount, gameState]);
 
   const handleGuess = useCallback((letter) => {

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useState } from "react";
 
 const COLORS = [
   "#ff6b6b", "#ffd93d", "#6bcb77", "#4d96ff",
@@ -12,8 +12,12 @@ function randomBetween(a, b) {
 }
 
 export default function Confetti({ count = 60 }) {
-  const particles = useMemo(() => {
-    return Array.from({ length: count }, (_, i) => ({
+  // Random particle generation is impure, so it can't run directly in the
+  // component body. useState's lazy initializer runs exactly once (on
+  // mount, never on re-render), which is the documented React pattern for
+  // one-time random/expensive initial state without an effect round-trip.
+  const [particles] = useState(() =>
+    Array.from({ length: count }, (_, i) => ({
       id: i,
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
       shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
@@ -23,8 +27,8 @@ export default function Confetti({ count = 60 }) {
       size: randomBetween(7, 13),       // px
       rotation: randomBetween(0, 360),  // deg initial
       drift: randomBetween(-60, 60),    // px horizontal drift
-    }));
-  }, [count]);
+    }))
+  );
 
   return (
     <div

@@ -190,11 +190,14 @@ function ScoreBadge({ score, best }) {
 
 export default function SnakeBoard({ dark }) {
   const canvasRef   = useRef(null);
-  const stateRef    = useRef(initState());
   const tickRef     = useRef(null);
   const dirQueueRef = useRef([]); // buffer up to 2 direction changes per tick
 
-  const [renderState, setRenderState] = useState(stateRef.current);
+  // renderState is the single source for the initial game state; stateRef
+  // is seeded from it (rather than the other way around) so no ref is read
+  // during render.
+  const [renderState, setRenderState] = useState(initState);
+  const stateRef = useRef(renderState);
   const [speedIdx, setSpeedIdx]       = useState(1); // Normal
   const [best, setBest]               = useState(0);
 

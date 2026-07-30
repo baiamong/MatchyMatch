@@ -309,29 +309,6 @@ function Game({ puzzle, onNewGame }) {
 
   const max = maxScore(puzzle);
 
-  // ── Keyboard support ──────────────────────────────────────────────
-  useEffect(() => {
-    const handler = (e) => {
-      if (e.ctrlKey || e.metaKey || e.altKey) return;
-      const key = e.key.toUpperCase();
-
-      if (key === "ENTER") {
-        handleSubmit();
-        return;
-      }
-      if (key === "BACKSPACE" || key === "DELETE") {
-        setInput((prev) => prev.slice(0, -1));
-        return;
-      }
-      if (/^[A-Z]$/.test(key)) {
-        setInput((prev) => prev + key);
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [input, found]);
-
   const triggerShake = () => {
     setShake(true);
     setTimeout(() => setShake(false), 450);
@@ -339,22 +316,6 @@ function Game({ puzzle, onNewGame }) {
 
   const showToast = useCallback((msg) => {
     setToast(msg);
-  }, []);
-
-  const handleLetter = useCallback((letter) => {
-    setInput((prev) => prev + letter);
-  }, []);
-
-  const handleDelete = useCallback(() => {
-    setInput((prev) => prev.slice(0, -1));
-  }, []);
-
-  const handleClear = useCallback(() => {
-    setInput("");
-  }, []);
-
-  const handleShuffle = useCallback(() => {
-    setOuterOrder((prev) => [...prev].sort(() => Math.random() - 0.5));
   }, []);
 
   const handleSubmit = useCallback(() => {
@@ -407,6 +368,45 @@ function Game({ puzzle, onNewGame }) {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input, found, puzzle, center]);
+
+  // ── Keyboard support ──────────────────────────────────────────────
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const key = e.key.toUpperCase();
+
+      if (key === "ENTER") {
+        handleSubmit();
+        return;
+      }
+      if (key === "BACKSPACE" || key === "DELETE") {
+        setInput((prev) => prev.slice(0, -1));
+        return;
+      }
+      if (/^[A-Z]$/.test(key)) {
+        setInput((prev) => prev + key);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input, found]);
+
+  const handleLetter = useCallback((letter) => {
+    setInput((prev) => prev + letter);
+  }, []);
+
+  const handleDelete = useCallback(() => {
+    setInput((prev) => prev.slice(0, -1));
+  }, []);
+
+  const handleClear = useCallback(() => {
+    setInput("");
+  }, []);
+
+  const handleShuffle = useCallback(() => {
+    setOuterOrder((prev) => [...prev].sort(() => Math.random() - 0.5));
+  }, []);
 
   const rank = getRank(score, max);
   const isQueenBee = score >= max && max > 0;

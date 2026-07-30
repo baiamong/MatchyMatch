@@ -28,15 +28,18 @@ export default function ChessBoard() {
   const [showConfetti, setShowConfetti] = useState(false)
 
   useEffect(() => {
-    if (gameStatus === 'checkmate') {
-      const winner = turn === 'white' ? 'Black' : 'White'
-      setMessage(`🎉 ${winner} wins by checkmate!`)
-      setShowConfetti(true)
-    } else if (gameStatus === 'stalemate') {
-      setMessage('🤝 Draw - Stalemate!')
-    } else if (gameStatus === 'check') {
-      setMessage('⚠️ Check!')
-    }
+    const id = setTimeout(() => {
+      if (gameStatus === 'checkmate') {
+        const winner = turn === 'white' ? 'Black' : 'White'
+        setMessage(`🎉 ${winner} wins by checkmate!`)
+        setShowConfetti(true)
+      } else if (gameStatus === 'stalemate') {
+        setMessage('🤝 Draw - Stalemate!')
+      } else if (gameStatus === 'check') {
+        setMessage('⚠️ Check!')
+      }
+    }, 0)
+    return () => clearTimeout(id)
   }, [gameStatus, turn])
 
   const handleSquareClick = (row, col) => {
