@@ -201,12 +201,6 @@ export default function GreatWallBoard() {
     }
   }, [gameState, lives])
 
-  const gameLoop = useCallback(() => {
-    update()
-    draw()
-    gameLoopRef.current = requestAnimationFrame(gameLoop)
-  }, [update, draw])
-
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -249,21 +243,31 @@ export default function GreatWallBoard() {
   }, [draw, gameState, initGame, startGame])
 
   useEffect(() => {
-    if (gameState === 'playing') {
-      gameLoopRef.current = requestAnimationFrame(gameLoop)
-    } else {
+    if (gameState !== 'playing') {
       if (gameLoopRef.current) {
         cancelAnimationFrame(gameLoopRef.current)
+        gameLoopRef.current = null
       }
       draw()
+      return
     }
+
+    // Define gameLoop inside the effect to avoid circular dependency
+    const gameLoop = () => {
+      update()
+      draw()
+      gameLoopRef.current = requestAnimationFrame(gameLoop)
+    }
+
+    gameLoopRef.current = requestAnimationFrame(gameLoop)
 
     return () => {
       if (gameLoopRef.current) {
         cancelAnimationFrame(gameLoopRef.current)
+        gameLoopRef.current = null
       }
     }
-  }, [gameState, score, lives, draw, gameLoop])
+  }, [gameState, score, lives, draw, update])
 
   return (
     <div className="w-full max-w-2xl mx-auto">
