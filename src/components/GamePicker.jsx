@@ -202,19 +202,26 @@ const GAMES = [
     description: 'Predict heads or tails and test your luck!',
     color: '#ffd60a',
   },
-    {
+  {
     id: 'kennykeno',
     emoji: '🎰',
     name: "Kenny's Keno",
     description: 'Pick numbers and match them to the draw!',
     color: '#ffd60a',
   },
-{
+  {
     id: 'chess',
     emoji: '♟️',
     name: 'Chess',
     description: 'Play the classic game of chess against a friend',
     color: '#8b7355',
+  },
+  {
+    id: 'rochellespinner',
+    emoji: '🎡',
+    name: "Rochelle's Spinner",
+    description: 'Spin the wheel and try your luck!',
+    color: '#e91e63',
   },
 ]
 
