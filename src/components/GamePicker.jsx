@@ -206,10 +206,10 @@ const GAMES = [
     tag: 'Word',
   },
   {
-    id: 'greatwall',
-    name: 'The Great Wall',
-    description: 'Break down the wall, one brick at a time!',
-    tag: 'Arcade',
+    id: 'latcham',
+    name: 'Latch-am If You Can',
+    description: 'Click the locks before they escape — latch as many as you can!',
+    tag: 'Reflex',
   },
 ]
 
