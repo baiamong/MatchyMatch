@@ -157,7 +157,7 @@ A toggle control is displayed in the header or just above the game grid. It swit
 - At build time, the Vite build process injects a **randomly selected puzzle index** (0–19) as an environment variable (e.g. `VITE_PUZZLE_INDEX`).
 - The app reads this value at runtime via `import.meta.env.VITE_PUZZLE_INDEX` and loads the corresponding puzzle.
 - This means every deploy serves a single fixed puzzle for that deployment lifetime — consistent for all players until the next deploy.
-- A Netlify build hook or scheduled CI trigger can re-deploy daily to rotate the puzzle automatically in the future (out of scope for now).
+- A scheduled CI trigger can re-deploy daily to rotate the puzzle automatically in the future (out of scope for now).
 
 ### Fallback
 - If `VITE_PUZZLE_INDEX` is missing or out of range, default to puzzle index `0`.
@@ -166,7 +166,7 @@ A toggle control is displayed in the header or just above the game grid. It swit
 - A small Node.js script (`scripts/pick-puzzle.js`) is added and called as part of the build command:
   - Generates a random integer between 0 and 19.
   - Writes it as `VITE_PUZZLE_INDEX=<n>` to a `.env.production` file before Vite builds.
-- The Netlify build command becomes: `node scripts/pick-puzzle.js && npm run build`
+- The build command becomes: `node scripts/pick-puzzle.js && npm run build`
 - `.env.production` is **gitignored** so it is never committed.
 
 ---
