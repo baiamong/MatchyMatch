@@ -209,6 +209,18 @@ const GAMES = [
     tag: 'Memory',
     isNew: true,
   },
+  {
+    id: 'manjual',
+    name: 'Manju-al',
+    description: 'Guess manju-related words with hints!',
+    tag: 'Word',
+  },
+  {
+    id: 'latcham',
+    name: 'Latch-am If You Can',
+    description: 'Click the locks before they escape — latch as many as you can!',
+    tag: 'Reflex',
+  },
 ]
 
 // Two-color gradients cycled across the grid, adapted from the Arcade
