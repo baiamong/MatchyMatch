@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Toast from '../Toast'
 import Confetti from '../Confetti'
 
@@ -28,36 +28,41 @@ export default function ManjualBoard() {
   const MAX_WRONG = 6
   const currentWord = MANJU_WORDS[currentWordIndex]
   const wordLetters = new Set(currentWord.word)
-  const correctGuesses = new Set([...guessedLetters].filter((l) => wordLetters.has(l)))
   const isWordComplete = [...wordLetters].every((l) => guessedLetters.has(l))
 
   useEffect(() => {
     if (isWordComplete) {
-      setScore(score + 1)
-      setMessage('🎉 Correct!')
-      setShowConfetti(true)
-      setTimeout(() => {
-        if (currentWordIndex < MANJU_WORDS.length - 1) {
-          setCurrentWordIndex(currentWordIndex + 1)
-          setGuessedLetters(new Set())
-          setMessage('')
-          setShowConfetti(false)
-        } else {
-          setWon(true)
-          setGameOver(true)
-        }
-      }, 1500)
+      const id = setTimeout(() => {
+        setScore((prevScore) => prevScore + 1)
+        setMessage('🎉 Correct!')
+        setShowConfetti(true)
+        setTimeout(() => {
+          if (currentWordIndex < MANJU_WORDS.length - 1) {
+            setCurrentWordIndex(currentWordIndex + 1)
+            setGuessedLetters(new Set())
+            setMessage('')
+            setShowConfetti(false)
+          } else {
+            setWon(true)
+            setGameOver(true)
+          }
+        }, 1500)
+      }, 0)
+      return () => clearTimeout(id)
     }
-  }, [isWordComplete, currentWordIndex, score])
+  }, [isWordComplete, currentWordIndex])
 
   useEffect(() => {
     if (wrongGuesses >= MAX_WRONG) {
-      setGameOver(true)
-      setMessage(`Game Over! The word was: ${currentWord.word}`)
+      const id = setTimeout(() => {
+        setGameOver(true)
+        setMessage(`Game Over! The word was: ${currentWord.word}`)
+      }, 0)
+      return () => clearTimeout(id)
     }
   }, [wrongGuesses, currentWord.word])
 
-  const handleGuess = (letter) => {
+  const handleGuess = useCallback((letter) => {
     if (gameOver || guessedLetters.has(letter)) return
 
     const newGuessed = new Set(guessedLetters)
@@ -65,9 +70,9 @@ export default function ManjualBoard() {
     setGuessedLetters(newGuessed)
 
     if (!wordLetters.has(letter)) {
-      setWrongGuesses(wrongGuesses + 1)
+      setWrongGuesses((prevWrong) => prevWrong + 1)
     }
-  }
+  }, [gameOver, guessedLetters, wordLetters])
 
   const handleNewGame = () => {
     setCurrentWordIndex(0)
