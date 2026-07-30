@@ -205,6 +205,12 @@ const GAMES = [
     description: 'Guess manju-related words with hints!',
     tag: 'Word',
   },
+  {
+    id: 'greatwall',
+    name: 'The Great Wall',
+    description: 'Break down the wall, one brick at a time!',
+    tag: 'Arcade',
+  },
 ]
 
 // Two-color gradients cycled across the grid, adapted from the Arcade
