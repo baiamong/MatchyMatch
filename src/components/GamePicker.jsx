@@ -356,7 +356,7 @@ export default function GamePicker({ onGameSelect }) {
   return (
     <div className="w-full">
       {/* Hero */}
-      <div className="arcade-hero -mx-4 sm:-mx-8 px-4 sm:px-8 py-12 sm:py-16">
+      <div className="arcade-hero -mx-4 sm:-mx-8 px-4 sm:px-8 pt-12 sm:pt-16 pb-16 sm:pb-24">
         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           <div className="max-w-xl">
             <div className="flex items-center gap-3 mb-6 flex-wrap">
@@ -398,7 +398,7 @@ export default function GamePicker({ onGameSelect }) {
 
       {/* Toolbar */}
       <div className="arcade-toolbar -mx-4 sm:-mx-8 px-4 sm:px-8">
-        <div className="max-w-5xl mx-auto py-4 flex flex-col gap-4">
+        <div className="max-w-5xl mx-auto pt-8 pb-6 flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
             <div className="relative w-full sm:w-[280px]">
               <input
@@ -465,7 +465,7 @@ export default function GamePicker({ onGameSelect }) {
 
       {/* Jump back in */}
       {recents.length > 0 && (
-        <div className="max-w-5xl mx-auto pt-8">
+        <div className="max-w-5xl mx-auto pt-12">
           <div className="arcade-eyebrow" style={{ marginBottom: 14 }}>Jump back in</div>
           <div className="flex gap-3 flex-wrap">
             {recents.map((id) => {
@@ -485,7 +485,7 @@ export default function GamePicker({ onGameSelect }) {
       )}
 
       {/* Grid */}
-      <div className="max-w-5xl mx-auto py-10">
+      <div className="max-w-5xl mx-auto pt-16 pb-10">
         {filtered.length === 0 ? (
           <div className="arcade-empty">
             <div style={{ fontSize: 22, fontWeight: 300, color: 'var(--arcade-text)' }}>No games match that.</div>

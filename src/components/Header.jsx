@@ -8,7 +8,6 @@ export default function Header({ activeGame, onGoHome, dark, onToggleDark }) {
         backdropFilter: "blur(24px) saturate(180%)",
         WebkitBackdropFilter: "blur(24px) saturate(180%)",
         borderBottom: "0.5px solid var(--separator)",
-        opacity: 0.95,
       }}
       className="w-full sticky top-0 z-40"
     >

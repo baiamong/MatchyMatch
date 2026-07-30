@@ -584,8 +584,7 @@ select:focus-visible,
   position: sticky;
   top: 0;
   z-index: 30;
-  background: color-mix(in srgb, var(--arcade-bg) 88%, transparent);
-  backdrop-filter: blur(24px);
+  background: var(--arcade-bg);
   border-bottom: 1px solid var(--arcade-border);
   box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 8px 24px -16px rgba(0,0,0,0.12);
 }
