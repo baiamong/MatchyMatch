@@ -69,7 +69,7 @@ export default function KennyKenoBoard() {
   return (
     <div className="kenny-keno-board">
       <div className="kenny-keno-container">
-        <h1 className="kenny-keno-title">Kenny's Keno</h1>
+        <h2 className="kenny-keno-title">Kenny's Keno</h2>
 
         {!gameStarted && !gameOver && (
           <div className="kenny-keno-section">

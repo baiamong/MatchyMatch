@@ -210,7 +210,7 @@ function Game({ puzzle, onNewGame }) {
   const underPar = gameState === "won" && steps < par;
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-sm mx-auto px-4 pt-4 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-sm mx-auto">
       {toast && <Toast message={toast} onDone={() => setToast(null)} />}
 
       {/* Header: start → end + par */}

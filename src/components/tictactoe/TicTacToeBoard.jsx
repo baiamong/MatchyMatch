@@ -288,7 +288,7 @@ export default function TicTacToeBoard() {
     }
 
     return (
-      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto px-4 sm:px-6 pt-6 pb-12">
+      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto">
         <WinScreen winner={resultWinner} onPlayAgain={handlePlayAgain} />
 
         {/* Stats */}
@@ -317,9 +317,9 @@ export default function TicTacToeBoard() {
 
   // ── Playing screen ───────────────────────────────────────────────
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto px-4 sm:px-6 pt-4 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto">
       {/* Title */}
-      <h1
+      <h2
         style={{
           fontSize: '1.5rem',
           fontWeight: 700,
@@ -329,7 +329,7 @@ export default function TicTacToeBoard() {
         }}
       >
         Tic Tac Toe with Brian 🧠
-      </h1>
+      </h2>
 
       {/* Stats */}
       <StatsBar playerWins={playerWins} aiWins={aiWins} draws={draws} />

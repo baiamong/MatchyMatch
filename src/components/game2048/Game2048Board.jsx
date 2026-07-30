@@ -229,13 +229,13 @@ export default function Game2048Board() {
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto px-4 sm:px-6 pt-4 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto">
 
       {/* Header row */}
       <div className="w-full flex items-center justify-between gap-3">
         {/* Title */}
         <div className="flex flex-col gap-0">
-          <h1
+          <h2
             style={{
               fontSize: "2.2rem",
               fontWeight: 900,
@@ -245,7 +245,7 @@ export default function Game2048Board() {
             }}
           >
             2048
-          </h1>
+          </h2>
           <p style={{ fontSize: "0.7rem", color: "var(--label-tertiary)", letterSpacing: "-0.01em" }}>
             Reach the&nbsp;<strong style={{ color: "var(--label-secondary)" }}>2048</strong>&nbsp;tile!
           </p>

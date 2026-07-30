@@ -555,7 +555,7 @@ function CrosswordGame({ puzzle, onNewGame }) {
   const progress = Math.round((filledCount / totalCells) * 100);
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto px-4 sm:px-6 pt-4 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto">
       {toast && <Toast message={toast} onDone={() => setToast(null)} />}
 
       {/* Active clue banner */}

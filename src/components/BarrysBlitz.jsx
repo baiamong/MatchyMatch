@@ -157,7 +157,7 @@ export default function BarrysBlitz() {
     return (
       <div className="barrys-blitz-container menu">
         <div className="menu-content">
-          <h1 className="title">⚡ Barry's Blitz ⚡</h1>
+          <h2 className="title">⚡ Barry's Blitz ⚡</h2>
           <p className="subtitle">Race against time to match words to categories!</p>
           <p className="description">
             Named after the fastest speedster around, Barry's Blitz is a high-speed word matching game.

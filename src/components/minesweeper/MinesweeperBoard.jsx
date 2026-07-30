@@ -170,12 +170,12 @@ export default function MinesweeperBoard() {
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-2xl mx-auto px-2 sm:px-4 pt-4 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-2xl mx-auto">
 
       {/* Title */}
       <div className="w-full flex items-center justify-between gap-3 flex-wrap">
         <div className="flex flex-col gap-0">
-          <h1
+          <h2
             style={{
               fontSize: '2rem',
               fontWeight: 900,
@@ -185,7 +185,7 @@ export default function MinesweeperBoard() {
             }}
           >
             Ryanfield
-          </h1>
+          </h2>
           <p style={{ fontSize: '0.7rem', color: 'var(--label-tertiary)' }}>
             Right-click / long-press to flag a mine
           </p>

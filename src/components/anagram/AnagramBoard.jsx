@@ -404,7 +404,7 @@ function Game({ onNewGame }) {
         : "Keep practising!";
 
     return (
-      <div className="flex flex-col items-center gap-6 w-full max-w-md mx-auto px-4 pt-6 pb-12">
+      <div className="flex flex-col items-center gap-6 w-full max-w-md mx-auto">
         <div
           className="spring-pop flex flex-col items-center gap-6 p-8 rounded-3xl w-full"
           style={{ background: "var(--bg-surface)", boxShadow: "var(--shadow-xl)" }}
@@ -505,7 +505,7 @@ function Game({ onNewGame }) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto px-4 pt-6 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto">
       {toast && <Toast message={toast} onDone={() => setToast(null)} />}
 
       {/* Header row: round dots + score */}

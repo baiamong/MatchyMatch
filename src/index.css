@@ -171,6 +171,28 @@ body {
   background-clip: text;
 }
 
+/* ── Focus visibility (keyboard navigation) ─────────────────────── */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.arcade-search:focus-visible,
+.arcade-select:focus-visible {
+  outline: 2px solid var(--arcade-blue);
+  outline-offset: 2px;
+}
+
+.arcade-card:focus-visible {
+  outline: 2px solid var(--arcade-blue);
+  outline-offset: 3px;
+}
+
 /* ── Buttons ─────────────────────────────────────────────────────── */
 .btn-ghost {
   display: inline-flex;

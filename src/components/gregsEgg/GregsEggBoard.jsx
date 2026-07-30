@@ -371,11 +371,11 @@ export default function GregsEggBoard() {
   // ── Menu ──────────────────────────────────────────────────────
   if (phase === 'menu') {
     return (
-      <div className="flex flex-col items-center gap-8 w-full max-w-md mx-auto px-4 pt-6 pb-12">
+      <div className="flex flex-col items-center gap-8 w-full max-w-md mx-auto">
         <style>{KEYFRAMES}</style>
         <div className="flex flex-col items-center gap-3 text-center">
           <span style={{ fontSize: '4rem' }}>🥚</span>
-          <h1
+          <h2
             style={{
               fontSize: '2rem',
               fontWeight: 800,
@@ -384,7 +384,7 @@ export default function GregsEggBoard() {
             }}
           >
             {"Greg's Egg"}
-          </h1>
+          </h2>
           <p style={{ fontSize: '1rem', color: 'var(--label-secondary)', maxWidth: 320 }}>
             {"Greg's chickens have gone rogue. Tap the eggs before they hatch — but watch out, the closer to hatching, the bigger the bonus!"}
           </p>
@@ -417,7 +417,7 @@ export default function GregsEggBoard() {
   // ── Game Over ─────────────────────────────────────────────────
   if (phase === 'gameover') {
     return (
-      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto px-4 pt-6 pb-12">
+      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto">
         <style>{KEYFRAMES}</style>
         <GameOverScreen
           score={score}
@@ -434,7 +434,7 @@ export default function GregsEggBoard() {
     timeLeft <= 5 ? '#ff3b30' : timeLeft <= 10 ? '#ff9f0a' : '#34c759'
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto px-4 pt-4 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto">
       <style>{KEYFRAMES}</style>
 
       {scorePopups.map(({ id, pts }) => (
@@ -442,7 +442,7 @@ export default function GregsEggBoard() {
       ))}
 
       {/* Header */}
-      <h1
+      <h2
         style={{
           fontSize: '1.5rem',
           fontWeight: 700,
@@ -452,7 +452,7 @@ export default function GregsEggBoard() {
         }}
       >
         {"Greg's Egg 🥚"}
-      </h1>
+      </h2>
 
       {/* Stats row */}
       <div className="flex items-center justify-center gap-4 flex-wrap">

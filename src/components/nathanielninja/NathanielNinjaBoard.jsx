@@ -244,7 +244,7 @@ export default function NathanielNinjaBoard() {
   // Playing screen
   return (
     <div
-      className="flex flex-col items-center gap-6 w-full max-w-md mx-auto px-4 sm:px-6 pt-4 pb-12"
+      className="flex flex-col items-center gap-6 w-full max-w-md mx-auto"
       ref={gameRef}
     >
       {toast && <Toast message={toast} onDone={() => setToast(null)} />}

@@ -488,7 +488,7 @@ export default function NickOfTTimeBoard() {
   // ── Render: Playing / Result ──────────────────────────────────
   return (
     <div
-      className="flex flex-col items-center gap-8 w-full max-w-md mx-auto px-4 sm:px-6 pt-4 pb-12"
+      className="flex flex-col items-center gap-8 w-full max-w-md mx-auto"
       onClick={phase === 'playing' ? handleTap : undefined}
       style={{ cursor: phase === 'playing' ? 'pointer' : 'default', userSelect: 'none' }}
     >

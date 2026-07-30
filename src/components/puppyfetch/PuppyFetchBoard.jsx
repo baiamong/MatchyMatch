@@ -172,7 +172,7 @@ function Game({ onNewGame }) {
   // ── Win screen ───────────────────────────────────────────────────
   if (gameState === "won") {
     return (
-      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto px-4 sm:px-6 pt-6 pb-12">
+      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto">
         <div
           className="spring-pop flex flex-col items-center gap-6 p-8 rounded-3xl w-full"
           style={{ background: "var(--bg-surface)", boxShadow: "var(--shadow-xl)" }}
@@ -232,7 +232,7 @@ function Game({ onNewGame }) {
 
   // ── Playing screen ───────────────────────────────────────────────
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto px-4 sm:px-6 pt-6 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto">
       {/* Title */}
       <div className="w-full flex flex-col items-center gap-2">
         <h2

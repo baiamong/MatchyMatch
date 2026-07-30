@@ -300,7 +300,7 @@ function Game({ problems, onNewGame }) {
       pct >= 40   ? "Keep practising!" : "Back to basics!";
 
     return (
-      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto px-4 sm:px-6 pt-6 pb-12">
+      <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto">
         {/* Score card */}
         <div
           className="spring-pop flex flex-col items-center gap-5 p-8 rounded-3xl w-full"
@@ -414,7 +414,7 @@ function Game({ problems, onNewGame }) {
     "var(--bg-surface)";
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto px-4 sm:px-6 pt-6 pb-12">
+    <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto">
       {toast && <Toast message={toast} onDone={() => setToast(null)} />}
 
       {/* Progress */}

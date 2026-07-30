@@ -289,7 +289,7 @@ export default function GamePicker({ onGameSelect }) {
               <span className="arcade-badge">AI Bootcamp</span>
               <span className="arcade-eyebrow">build · ship · play</span>
             </div>
-            <h1
+            <h2
               className="m-0 tracking-tight"
               style={{
                 fontFamily: 'var(--font-display)',
@@ -301,7 +301,7 @@ export default function GamePicker({ onGameSelect }) {
               }}
             >
               The <span style={{ fontWeight: 900, color: 'var(--arcade-blue)' }}>Arcade</span>
-            </h1>
+            </h2>
             <p
               className="mt-5"
               style={{ fontSize: 16, lineHeight: 1.5, color: 'var(--arcade-text-muted)' }}

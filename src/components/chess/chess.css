@@ -2,7 +2,6 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
 }
 
 .chess-main {
@@ -313,10 +312,6 @@
 }
 
 @media (max-width: 480px) {
-  .chess-container {
-    padding: 0.5rem;
-  }
-
   .chess-main {
     gap: 1rem;
   }

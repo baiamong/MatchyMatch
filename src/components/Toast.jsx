@@ -14,6 +14,8 @@ export default function Toast({ message, onDone }) {
 
   return (
     <div
+      role="status"
+      aria-live="polite"
       className={clsx(
         "fixed top-20 left-1/2 -translate-x-1/2 z-50",
         "text-sm font-medium px-5 py-2.5 rounded-full",
