@@ -35,6 +35,7 @@ import CatMatchBoard from './components/catmatch/CatMatchBoard'
 import ChessBoard from './components/chess/ChessBoard'
 import KennyKenoBoard from './components/kennykeno/KennyKenoBoard'
 import RochellesSpinnerBoard from './components/rochellespinner/RochellesSpinnerBoard'
+import MartiniMatchBoard from './components/martinimatch/MartiniMatchBoard'
 import { puzzles } from './data/puzzles'
 
 const envIndex = parseInt(import.meta.env.VITE_PUZZLE_INDEX, 10)
@@ -140,6 +141,8 @@ function App() {
           <ChessBoard key={`chess-${gameKey}`} />
         ) : activeGame === 'rochellespinner' ? (
           <RochellesSpinnerBoard key={`rochellespinner-${gameKey}`} />
+        ) : activeGame === 'martinimatch' ? (
+          <MartiniMatchBoard key={`martinimatch-${gameKey}`} />
         ) : (
           <SudokuBoard key={`sudoku-${gameKey}`} />
         )}
