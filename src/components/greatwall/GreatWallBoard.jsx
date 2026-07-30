@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 const PADDLE_WIDTH = 100
 const PADDLE_HEIGHT = 12
@@ -22,54 +22,7 @@ export default function GreatWallBoard() {
     canvasHeight: 0,
   })
 
-  const initGame = () => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const width = canvas.width
-    const height = canvas.height
-    const brickWidth = (width - (BRICK_COLS + 1) * BRICK_PADDING) / BRICK_COLS
-
-    const bricks = []
-    for (let row = 0; row < BRICK_ROWS; row++) {
-      for (let col = 0; col < BRICK_COLS; col++) {
-        bricks.push({
-          x: col * (brickWidth + BRICK_PADDING) + BRICK_PADDING,
-          y: row * (BRICK_HEIGHT + BRICK_PADDING) + BRICK_PADDING + 40,
-          width: brickWidth,
-          height: BRICK_HEIGHT,
-          visible: true,
-          color: `hsl(${(row * 360) / BRICK_ROWS}, 70%, 60%)`,
-        })
-      }
-    }
-
-    stateRef.current = {
-      paddle: {
-        x: width / 2 - PADDLE_WIDTH / 2,
-        y: height - PADDLE_HEIGHT - 20,
-      },
-      ball: {
-        x: width / 2,
-        y: height - PADDLE_HEIGHT - 40,
-        dx: 3,
-        dy: -3,
-      },
-      bricks,
-      canvasWidth: width,
-      canvasHeight: height,
-    }
-
-    setScore(0)
-    setLives(3)
-    setGameState('ready')
-  }
-
-  const startGame = () => {
-    setGameState('playing')
-  }
-
-  const draw = () => {
+  const draw = useCallback(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -131,9 +84,56 @@ export default function GreatWallBoard() {
       ctx.fillText('Click to Try Again', canvasWidth / 2, canvasHeight / 2 + 40)
       ctx.textAlign = 'left'
     }
-  }
+  }, [gameState, score, lives])
 
-  const update = () => {
+  const initGame = useCallback(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const width = canvas.width
+    const height = canvas.height
+    const brickWidth = (width - (BRICK_COLS + 1) * BRICK_PADDING) / BRICK_COLS
+
+    const bricks = []
+    for (let row = 0; row < BRICK_ROWS; row++) {
+      for (let col = 0; col < BRICK_COLS; col++) {
+        bricks.push({
+          x: col * (brickWidth + BRICK_PADDING) + BRICK_PADDING,
+          y: row * (BRICK_HEIGHT + BRICK_PADDING) + BRICK_PADDING + 40,
+          width: brickWidth,
+          height: BRICK_HEIGHT,
+          visible: true,
+          color: `hsl(${(row * 360) / BRICK_ROWS}, 70%, 60%)`,
+        })
+      }
+    }
+
+    stateRef.current = {
+      paddle: {
+        x: width / 2 - PADDLE_WIDTH / 2,
+        y: height - PADDLE_HEIGHT - 20,
+      },
+      ball: {
+        x: width / 2,
+        y: height - PADDLE_HEIGHT - 40,
+        dx: 3,
+        dy: -3,
+      },
+      bricks,
+      canvasWidth: width,
+      canvasHeight: height,
+    }
+
+    setScore(0)
+    setLives(3)
+    setGameState('ready')
+  }, [])
+
+  const startGame = useCallback(() => {
+    setGameState('playing')
+  }, [])
+
+  const update = useCallback(() => {
     if (gameState !== 'playing') return
 
     const { paddle, ball, bricks, canvasWidth, canvasHeight } = stateRef.current
@@ -164,7 +164,6 @@ export default function GreatWallBoard() {
     }
 
     // Ball collision with bricks
-    let hitBrick = false
     bricks.forEach((brick) => {
       if (!brick.visible) return
 
@@ -176,7 +175,6 @@ export default function GreatWallBoard() {
       ) {
         brick.visible = false
         ball.dy = -ball.dy
-        hitBrick = true
         setScore((s) => s + 10)
       }
     })
@@ -201,13 +199,13 @@ export default function GreatWallBoard() {
         ball.dy = -3
       }
     }
-  }
+  }, [gameState, lives])
 
-  const gameLoop = () => {
+  const gameLoop = useCallback(() => {
     update()
     draw()
     gameLoopRef.current = requestAnimationFrame(gameLoop)
-  }
+  }, [update, draw])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -248,7 +246,7 @@ export default function GreatWallBoard() {
         cancelAnimationFrame(gameLoopRef.current)
       }
     }
-  }, [])
+  }, [draw, gameState, initGame, startGame])
 
   useEffect(() => {
     if (gameState === 'playing') {
@@ -265,7 +263,7 @@ export default function GreatWallBoard() {
         cancelAnimationFrame(gameLoopRef.current)
       }
     }
-  }, [gameState, score, lives])
+  }, [gameState, score, lives, draw, gameLoop])
 
   return (
     <div className="w-full max-w-2xl mx-auto">
