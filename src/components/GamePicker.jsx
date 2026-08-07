@@ -221,6 +221,14 @@ const GAMES = [
     description: 'Click the locks before they escape — latch as many as you can!',
     tag: 'Reflex',
   },
+  {
+    id: 'geoffsgeometry',
+    name: "Geoff's Geometry",
+    description: 'Identify shapes as fast as you can in this geometric challenge!',
+    tag: 'Reflex',
+    builder: 'Geoff',
+    isNew: true,
+  },
 ]
 
 // Two-color gradients cycled across the grid, adapted from the Arcade
