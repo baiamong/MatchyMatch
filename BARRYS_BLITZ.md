@@ -20,6 +20,7 @@
 - **Wrong Match**: Word and category don't match → feedback shown, try again
 - **Win Condition**: Match all words before time runs out
 - **Lose Condition**: Time runs out
+- **Golden Rule**: Don't worry if you lose—there's no need to *speed* away in shame! We'll be here for your next attempt. ⚡
 
 ## Features
 
