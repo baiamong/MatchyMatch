@@ -10,7 +10,7 @@ export default function KennyKenoBoard() {
   const [message, setMessage] = useState('')
 
   const handleNumberSelect = (num) => {
-    if (gameStarted || gameOver) return
+    if (gameStarted) return
     if (selectedNumbers.includes(num)) {
       setSelectedNumbers(selectedNumbers.filter((n) => n !== num))
     } else if (selectedNumbers.length < 10) {
