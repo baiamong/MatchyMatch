@@ -1,4 +1,4 @@
-/* eslint-env node */
+/* global module, require, __dirname */
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
