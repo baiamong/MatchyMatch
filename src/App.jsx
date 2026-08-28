@@ -47,9 +47,40 @@ const PUZZLE_INDEX =
     ? envIndex
     : 0
 
+// Valid game IDs for URL parameter validation
+const VALID_GAME_IDS = [
+  'matchy', 'wordle', 'crunch', 'cross', 'chain', 'scramble', 'anagram',
+  'sudoku', 'trivia', 'memory', 'puppyfetch', 'catmatch', 'typerace',
+  'wordsearch', 'mathquiz', 'hangman', 'snake', 'spellingbee', '2048',
+  'minesweeper', 'tictactoe', 'barrysblitz', 'gregsegg', 'nathanielninja',
+  'nickofttime', 'colourclash', 'flipflop', 'diceroll', 'flipcoin',
+  'kennykeno', 'chess', 'rochellespinner', 'martinimatch', 'manjual',
+  'latcham', 'geoffsgeometry'
+]
+
+// Helper function to get initial game from URL parameter
+function getInitialGameFromURL() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const gameParam = urlParams.get('game')
+  
+  if (gameParam) {
+    // Normalize to lowercase for case-insensitive matching
+    const normalizedGame = gameParam.toLowerCase()
+    
+    // Check if it's a valid game ID
+    if (VALID_GAME_IDS.includes(normalizedGame)) {
+      return normalizedGame
+    } else {
+      console.warn(`Game "${gameParam}" not found. Available games:`, VALID_GAME_IDS)
+    }
+  }
+  
+  return null
+}
+
 function App() {
   // null = home / game picker screen
-  const [activeGame, setActiveGame] = useState(null)
+  const [activeGame, setActiveGame] = useState(getInitialGameFromURL)
   const [gameKey, setGameKey] = useState(0)
   const { dark, toggle: toggleDark } = useDarkMode()
 
@@ -60,10 +91,20 @@ function App() {
   const handleGameSelect = (game) => {
     setActiveGame(game)
     setGameKey((k) => k + 1)
+    
+    // Update URL to reflect the selected game
+    const url = new URL(window.location)
+    url.searchParams.set('game', game)
+    window.history.pushState({}, '', url)
   }
 
   const handleGoHome = () => {
     setActiveGame(null)
+    
+    // Clear the game parameter from URL
+    const url = new URL(window.location)
+    url.searchParams.delete('game')
+    window.history.pushState({}, '', url)
   }
 
   return (
