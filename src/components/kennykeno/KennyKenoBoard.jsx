@@ -15,6 +15,10 @@ export default function KennyKenoBoard() {
       setSelectedNumbers(selectedNumbers.filter((n) => n !== num))
     } else if (selectedNumbers.length < 10) {
       setSelectedNumbers([...selectedNumbers, num])
+      // Clear error message when user selects a number
+      if (message) {
+        setMessage('')
+      }
     }
   }
 
@@ -30,7 +34,11 @@ export default function KennyKenoBoard() {
 
   const drawNumbers = () => {
     const drawn = []
+    let iterations = 0
     while (drawn.length < 20) {
+      iterations++
+      if (iterations > 1000) break
+      
       const num = Math.floor(Math.random() * 80) + 1
       if (!drawn.includes(num)) {
         drawn.push(num)
