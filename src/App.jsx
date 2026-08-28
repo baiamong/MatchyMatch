@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Header from './components/Header'
 import { useDarkMode } from './hooks/useDarkMode'
 import Footer from './components/Footer'
@@ -58,29 +58,31 @@ const VALID_GAME_IDS = [
   'latcham', 'geoffsgeometry'
 ]
 
+// Helper function to get initial game from URL parameter
+function getInitialGameFromURL() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const gameParam = urlParams.get('game')
+  
+  if (gameParam) {
+    // Normalize to lowercase for case-insensitive matching
+    const normalizedGame = gameParam.toLowerCase()
+    
+    // Check if it's a valid game ID
+    if (VALID_GAME_IDS.includes(normalizedGame)) {
+      return normalizedGame
+    } else {
+      console.warn(`Game "${gameParam}" not found. Available games:`, VALID_GAME_IDS)
+    }
+  }
+  
+  return null
+}
+
 function App() {
   // null = home / game picker screen
-  const [activeGame, setActiveGame] = useState(null)
+  const [activeGame, setActiveGame] = useState(getInitialGameFromURL)
   const [gameKey, setGameKey] = useState(0)
   const { dark, toggle: toggleDark } = useDarkMode()
-
-  // Parse URL parameter on mount to auto-load a game
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const gameParam = urlParams.get('game')
-    
-    if (gameParam) {
-      // Normalize to lowercase for case-insensitive matching
-      const normalizedGame = gameParam.toLowerCase()
-      
-      // Check if it's a valid game ID
-      if (VALID_GAME_IDS.includes(normalizedGame)) {
-        setActiveGame(normalizedGame)
-      } else {
-        console.warn(`Game "${gameParam}" not found. Available games:`, VALID_GAME_IDS)
-      }
-    }
-  }, [])
 
   const handleNewGame = () => {
     setGameKey((k) => k + 1)
