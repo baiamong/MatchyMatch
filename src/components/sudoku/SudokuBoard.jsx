@@ -5,45 +5,6 @@ import Toast from "../Toast";
 // ── Puzzle library ────────────────────────────────────────────────────────────
 // 6×6 Sudoku: rows 0-5, cols 0-5, boxes are 2 rows × 3 cols
 // 0 = empty cell to fill in
-const PUZZLES = [
-  {
-    given: [
-      [5, 3, 0, 0, 7, 0],
-      [0, 0, 0, 1, 9, 5],
-      [0, 9, 8, 0, 0, 0],
-      [8, 0, 0, 0, 6, 0],
-      [4, 0, 0, 8, 0, 3],
-      [7, 0, 0, 0, 2, 0],
-    ],
-    solution: [
-      [5, 3, 4, 6, 7, 8],
-      [6, 7, 2, 1, 9, 5],
-      [1, 9, 8, 3, 4, 2],
-      [8, 5, 9, 7, 6, 1],
-      [4, 2, 6, 8, 5, 3],
-      [7, 1, 3, 9, 2, 4],
-    ],
-  },
-  {
-    given: [
-      [0, 0, 3, 0, 2, 0],
-      [6, 0, 0, 3, 0, 0],
-      [0, 4, 0, 0, 0, 3],
-      [0, 0, 0, 0, 1, 0],
-      [0, 0, 1, 0, 0, 6],
-      [0, 3, 0, 4, 0, 0],
-    ],
-    solution: [
-      [4, 1, 3, 6, 2, 5],
-      [6, 5, 2, 3, 4, 1],
-      [1, 4, 6, 5, 3, 2], // wait — let me use verified puzzles
-      [3, 6, 4, 2, 1, 5], // actually I'll use hand-verified ones below
-      [2, 4, 1, 5, 3, 6],
-      [5, 3, 6, 4, 2, 1], // placeholder — replaced below
-    ],
-  },
-];
-
 // Hand-verified 6×6 Sudoku puzzles (2×3 boxes, digits 1-6)
 const VERIFIED_PUZZLES = [
   // Puzzle 1
