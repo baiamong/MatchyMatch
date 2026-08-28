@@ -6,6 +6,19 @@
 
 The game is automatically deployed to GitHub Pages whenever changes are merged to the main branch. Each deployment randomly selects one puzzle from the library of 20 available puzzles, so the specific puzzle you see may change after updates.
 
+### Direct Game Links
+
+You can link directly to any game in The Arcade by adding a `?game=` parameter to the URL. For example:
+
+- **Kenny's Keno:** [https://baiamong.github.io/MatchyMatch/?game=kennykeno](https://baiamong.github.io/MatchyMatch/?game=kennykeno)
+- **Wordle:** [https://baiamong.github.io/MatchyMatch/?game=wordle](https://baiamong.github.io/MatchyMatch/?game=wordle)
+- **Snake:** [https://baiamong.github.io/MatchyMatch/?game=snake](https://baiamong.github.io/MatchyMatch/?game=snake)
+
+The game parameter is case-insensitive, so `?game=KennyKeno` and `?game=kennykeno` both work. When you select a game from the picker, the URL automatically updates so you can bookmark or share the link.
+
+**Available game IDs:**
+`matchy`, `wordle`, `crunch`, `cross`, `chain`, `scramble`, `anagram`, `sudoku`, `trivia`, `memory`, `puppyfetch`, `catmatch`, `typerace`, `wordsearch`, `mathquiz`, `hangman`, `snake`, `spellingbee`, `2048`, `minesweeper`, `tictactoe`, `barrysblitz`, `gregsegg`, `nathanielninja`, `nickofttime`, `colourclash`, `flipflop`, `diceroll`, `flipcoin`, `kennykeno`, `chess`, `rochellespinner`, `martinimatch`, `manjual`, `latcham`, `geoffsgeometry`
+
 ---
 
 ## What is Puzzlr?
@@ -162,6 +175,11 @@ MatchyMatch/
 - Run `npm ci` to ensure dependencies match the lock file exactly
 - Check that `jest.config.js` and `jest.setup.js` are present
 - Review test output for specific error messages
+
+### Direct game link doesn't work
+- Verify the game ID is correct (see list of available game IDs above)
+- Game IDs are case-insensitive but must match one of the valid IDs
+- Check browser console for any error messages
 
 ---
 
