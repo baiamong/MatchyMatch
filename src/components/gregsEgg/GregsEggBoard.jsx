@@ -398,6 +398,7 @@ export default function GregsEggBoard() {
             { emoji: '🥚', text: 'Tap an egg to crack it — 10 pts' },
             { emoji: '🐣', text: "Tap while it's cracking for 15 pts!" },
             { emoji: '🐥', text: 'Miss it and a chick escapes…' },
+            { emoji: '⚠️', text: 'Pro tip: Eggs cannot be unscrambled. Neither can your score.' },
             { emoji: '⏱️', text: `You have ${GAME_DURATION} seconds. Go fast!` },
           ].map(({ emoji, text }) => (
             <div key={text} className="flex items-center gap-3">
