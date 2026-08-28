@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import { useDarkMode } from './hooks/useDarkMode'
 import Footer from './components/Footer'
@@ -47,11 +47,40 @@ const PUZZLE_INDEX =
     ? envIndex
     : 0
 
+// Valid game IDs for URL parameter validation
+const VALID_GAME_IDS = [
+  'matchy', 'wordle', 'crunch', 'cross', 'chain', 'scramble', 'anagram',
+  'sudoku', 'trivia', 'memory', 'puppyfetch', 'catmatch', 'typerace',
+  'wordsearch', 'mathquiz', 'hangman', 'snake', 'spellingbee', '2048',
+  'minesweeper', 'tictactoe', 'barrysblitz', 'gregsegg', 'nathanielninja',
+  'nickofttime', 'colourclash', 'flipflop', 'diceroll', 'flipcoin',
+  'kennykeno', 'chess', 'rochellespinner', 'martinimatch', 'manjual',
+  'latcham', 'geoffsgeometry'
+]
+
 function App() {
   // null = home / game picker screen
   const [activeGame, setActiveGame] = useState(null)
   const [gameKey, setGameKey] = useState(0)
   const { dark, toggle: toggleDark } = useDarkMode()
+
+  // Parse URL parameter on mount to auto-load a game
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const gameParam = urlParams.get('game')
+    
+    if (gameParam) {
+      // Normalize to lowercase for case-insensitive matching
+      const normalizedGame = gameParam.toLowerCase()
+      
+      // Check if it's a valid game ID
+      if (VALID_GAME_IDS.includes(normalizedGame)) {
+        setActiveGame(normalizedGame)
+      } else {
+        console.warn(`Game "${gameParam}" not found. Available games:`, VALID_GAME_IDS)
+      }
+    }
+  }, [])
 
   const handleNewGame = () => {
     setGameKey((k) => k + 1)
@@ -60,10 +89,20 @@ function App() {
   const handleGameSelect = (game) => {
     setActiveGame(game)
     setGameKey((k) => k + 1)
+    
+    // Update URL to reflect the selected game
+    const url = new URL(window.location)
+    url.searchParams.set('game', game)
+    window.history.pushState({}, '', url)
   }
 
   const handleGoHome = () => {
     setActiveGame(null)
+    
+    // Clear the game parameter from URL
+    const url = new URL(window.location)
+    url.searchParams.delete('game')
+    window.history.pushState({}, '', url)
   }
 
   return (
