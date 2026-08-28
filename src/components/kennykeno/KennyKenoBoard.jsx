@@ -82,7 +82,7 @@ export default function KennyKenoBoard() {
         {!gameStarted && !gameOver && (
           <div className="kenny-keno-section">
             <p className="kenny-keno-instruction">
-              Pick 1-10 numbers (1-80), then see how many match the draw!
+              Pick 1-10 numbers (1-80). Your odds are terrible, but hey, someone's gotta lose!
             </p>
             <div className="kenny-keno-grid">
               {Array.from({ length: 80 }, (_, i) => i + 1).map((num) => (
