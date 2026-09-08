@@ -47,6 +47,17 @@ const VERIFIED_PUZZLES = [
   },
 ];
 
+// ── Board utilities ───────────────────────────────────────────────────────────
+
+/**
+ * Creates a deep copy of a 6×6 Sudoku board.
+ * @param {number[][]} board - The board to clone
+ * @returns {number[][]} A new board with copied values
+ */
+function cloneBoard(board) {
+  return board.map((row) => [...row]);
+}
+
 // ── Proper puzzle generator ───────────────────────────────────────────────────
 // Generate a valid 6×6 Sudoku (2 rows × 3 cols boxes, digits 1-6)
 
@@ -70,22 +81,39 @@ function isValid6(board, row, col, num) {
   return true;
 }
 
+/**
+ * Fills a Sudoku board using backtracking algorithm.
+ * 
+ * MUTATION STRATEGY: This function modifies the board in-place for performance.
+ * The backtracking algorithm tries placing numbers 1-6 in empty cells, recursively
+ * solving the rest of the board. If a path fails, it backtracks by resetting the
+ * cell to 0 and trying the next number.
+ * 
+ * @param {number[][]} board - The board to fill (MUTATED IN-PLACE)
+ * @returns {boolean} True if the board was successfully filled, false otherwise
+ */
 function fillBoard(board) {
+  // Scan for the first empty cell (value 0)
   for (let row = 0; row < 6; row++) {
     for (let col = 0; col < 6; col++) {
       if (board[row][col] === 0) {
+        // Try numbers in random order for variety
         const nums = shuffle([1, 2, 3, 4, 5, 6]);
         for (const num of nums) {
           if (isValid6(board, row, col, num)) {
+            // MUTATION: Place the number and recurse
             board[row][col] = num;
             if (fillBoard(board)) return true;
+            // BACKTRACK: Reset if the path didn't work
             board[row][col] = 0;
           }
         }
+        // No valid number found for this cell
         return false;
       }
     }
   }
+  // All cells filled successfully
   return true;
 }
 
@@ -98,27 +126,60 @@ function shuffle(arr) {
   return a;
 }
 
+/**
+ * Counts the number of valid solutions for a given Sudoku board.
+ * 
+ * MUTATION STRATEGY: Creates a deep copy of the input board before solving,
+ * ensuring the caller's board is never modified. The internal solve function
+ * uses in-place mutations on the copy for performance during backtracking.
+ * 
+ * This function is used during puzzle generation to ensure uniqueness.
+ * The limit parameter allows early termination once we know there are multiple
+ * solutions (we only need to distinguish between 1 and 2+ solutions).
+ * 
+ * @param {number[][]} board - The board to analyze (NOT MODIFIED)
+ * @param {number} limit - Stop counting after this many solutions (default: 2)
+ * @returns {number} The number of solutions found (capped at limit)
+ */
 function countSolutions(board, limit = 2) {
   let count = 0;
+  
+  /**
+   * Recursive backtracking solver that counts all valid solutions.
+   * MUTATION: Modifies the board copy in-place during recursion.
+   * 
+   * @param {number[][]} b - The board copy being solved (MUTATED IN-PLACE)
+   */
   function solve(b) {
+    // Early exit if we've found enough solutions
     if (count >= limit) return;
+    
+    // Find the first empty cell
     for (let row = 0; row < 6; row++) {
       for (let col = 0; col < 6; col++) {
         if (b[row][col] === 0) {
+          // Try each number 1-6
           for (let num = 1; num <= 6; num++) {
             if (isValid6(b, row, col, num)) {
+              // MUTATION: Place number and recurse
               b[row][col] = num;
               solve(b);
+              // BACKTRACK: Reset to try other possibilities
               b[row][col] = 0;
             }
           }
+          // After trying all numbers for this cell, return
+          // (backtracking will continue from the previous cell)
           return;
         }
       }
     }
+    // No empty cells found - we have a complete solution
     count++;
   }
-  solve(board.map((r) => [...r]));
+  
+  // Create a deep copy to protect the caller's board from mutations
+  solve(cloneBoard(board));
   return count;
 }
 
