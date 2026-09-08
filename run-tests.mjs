@@ -118,6 +118,31 @@ test('should return false for 2 out of 4 correct', () => {
   expect(isOneAway(['LAMP', 'TOASTER', 'MIRROR', 'TOWEL'], mockAllWords)).toBe(false);
 });
 
+// isCategoryGuessed tests
+console.log('\nisCategoryGuessed:');
+test('should return true when category is guessed', () => {
+  const guessedCategories = [{ id: 'yellow' }, { id: 'green' }];
+  expect(isCategoryGuessed('yellow', guessedCategories)).toBe(true);
+});
+
+test('should return false when category is not guessed', () => {
+  const guessedCategories = [{ id: 'yellow' }, { id: 'green' }];
+  expect(isCategoryGuessed('blue', guessedCategories)).toBe(false);
+});
+
+test('should handle null categoryId', () => {
+  const guessedCategories = [{ id: 'yellow' }];
+  expect(isCategoryGuessed(null, guessedCategories)).toBe(false);
+});
+
+test('should handle null guessedCategories', () => {
+  expect(isCategoryGuessed('yellow', null)).toBe(false);
+});
+
+test('should handle empty array', () => {
+  expect(isCategoryGuessed('yellow', [])).toBe(false);
+});
+
 // isGameWon tests
 console.log('\nisGameWon:');
 test('should return true when all categories are guessed', () => {

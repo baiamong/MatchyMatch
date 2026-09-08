@@ -75,6 +75,9 @@ export function isOneAway(selectedWords, allWords) {
  * @returns {boolean} - True if already guessed
  */
 export function isCategoryGuessed(categoryId, guessedCategories) {
+  if (!guessedCategories || !Array.isArray(guessedCategories)) {
+    return false;
+  }
   return guessedCategories.some((cat) => cat.id === categoryId);
 }
 
