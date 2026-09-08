@@ -4,6 +4,7 @@ import {
   isInRange,
   capitalize,
   debounce,
+  doCardsMatch,
 } from '../utils/gameHelpers';
 
 describe('gameHelpers', () => {
@@ -146,6 +147,42 @@ describe('gameHelpers', () => {
       jest.advanceTimersByTime(300);
 
       expect(mockFn).toHaveBeenCalledWith('test', 123);
+    });
+  });
+
+  describe('doCardsMatch', () => {
+    it('should return true when cards have matching property values', () => {
+      const card1 = { label: 'cat', id: 1 };
+      const card2 = { label: 'cat', id: 2 };
+      expect(doCardsMatch(card1, card2, 'label')).toBe(true);
+    });
+
+    it('should return false when cards have different property values', () => {
+      const card1 = { label: 'cat', id: 1 };
+      const card2 = { label: 'dog', id: 2 };
+      expect(doCardsMatch(card1, card2, 'label')).toBe(false);
+    });
+
+    it('should work with different property names', () => {
+      const card1 = { breed: 'labrador', id: 1 };
+      const card2 = { breed: 'labrador', id: 2 };
+      expect(doCardsMatch(card1, card2, 'breed')).toBe(true);
+    });
+
+    it('should return false when either card is null', () => {
+      const card1 = { label: 'cat', id: 1 };
+      expect(doCardsMatch(null, card1, 'label')).toBe(false);
+      expect(doCardsMatch(card1, null, 'label')).toBe(false);
+    });
+
+    it('should return false when both cards are null', () => {
+      expect(doCardsMatch(null, null, 'label')).toBe(false);
+    });
+
+    it('should handle undefined property values', () => {
+      const card1 = { id: 1 };
+      const card2 = { id: 2 };
+      expect(doCardsMatch(card1, card2, 'label')).toBe(true); // both undefined
     });
   });
 });
