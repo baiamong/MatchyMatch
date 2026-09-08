@@ -6,6 +6,7 @@ import LivesDisplay from "./LivesDisplay";
 import ModeToggle from "./ModeToggle";
 import Toast from "./Toast";
 import Confetti from "./Confetti";
+import { checkMatch, isOneAway, isGameWon, isGameLost, decrementLives } from "../utils/matchLogic";
 
 const MAX_SELECTED = 4;
 const LIVES_BY_MODE = { normal: 5, hard: 3 };
@@ -85,41 +86,34 @@ export default function GameBoard({ puzzle, onNewGame }) {
     if (!hasStarted) setHasStarted(true);
     setGuessCount((n) => n + 1);
 
-    const selectedCategoryIds = selected.map((word) => {
-      const tile = allWords.find((t) => t.word === word);
-      return tile?.categoryId;
-    });
+    const matchResult = checkMatch(selected, allWords);
 
-    const allSame = selectedCategoryIds.every((id) => id === selectedCategoryIds[0]);
-
-    if (allSame) {
+    if (matchResult.isMatch) {
       const matchedCategory = puzzle.categories.find(
-        (c) => c.id === selectedCategoryIds[0]
+        (c) => c.id === matchResult.categoryId
       );
       setRevealed((prev) => [...prev, ...selected]);
       setSelected([]);
       const newGuessed = [...guessedCategories, matchedCategory];
       setGuessedCategories(newGuessed);
-      if (newGuessed.length === puzzle.categories.length) {
+      if (isGameWon(newGuessed, puzzle.categories.length)) {
         setTimeout(() => setGameState("won"), 400);
       }
     } else {
-      const oneAway = selectedCategoryIds.some(
-        (id) => selectedCategoryIds.filter((x) => x === id).length === 3
-      );
+      const oneAwayDetected = isOneAway(selected, allWords);
 
       triggerShake();
-      const newLives = lives - 1;
+      const newLives = decrementLives(lives);
       setLives(newLives);
       setSelected([]);
 
-      if (oneAway && mode === "normal") {
+      if (oneAwayDetected && mode === "normal") {
         showToast("One away — so close!");
       } else {
         showToast("Not quite. Try again!");
       }
 
-      if (newLives <= 0) {
+      if (isGameLost(newLives)) {
         setTimeout(() => {
           const remaining = puzzle.categories.filter(
             (c) => !guessedCategories.find((g) => g.id === c.id)
