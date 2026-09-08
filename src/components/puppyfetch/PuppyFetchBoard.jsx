@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react"
 import { DOG_PAIRS } from "../../data/puppyFetchData"
+import { doCardsMatch } from "../../utils/gameHelpers"
 
 function initializeGame() {
   const cards = []
@@ -126,7 +127,7 @@ function Game({ onNewGame }) {
         const firstCard = prev.cards[first]
         const secondCard = prev.cards[second]
 
-        const isMatch = firstCard.breed === secondCard.breed
+        const isMatch = doCardsMatch(firstCard, secondCard, "breed")
 
         if (isMatch) {
           const newMatched = new Set(prev.matched)

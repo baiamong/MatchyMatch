@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { doCardsMatch } from "../../utils/gameHelpers";
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
@@ -138,7 +139,7 @@ function Game({ onNewGame }) {
         const firstCard = prev.cards[first];
         const secondCard = prev.cards[second];
 
-        const isMatch = firstCard.label === secondCard.label;
+        const isMatch = doCardsMatch(firstCard, secondCard, "label");
 
         if (isMatch) {
           const newMatched = new Set(prev.matched);
