@@ -1,5 +1,7 @@
 # Puzzlr — Word Matching Puzzle Game
 
+MatchyMatch is a matching game where you group items into categories based on hidden connections.
+
 ## 🎮 Play the Game
 
 **Live URL:** [https://baiamong.github.io/MatchyMatch/](https://baiamong.github.io/MatchyMatch/)
