@@ -1,3 +1,8 @@
+/**
+ * Main entry point for the MatchyMatch application.
+ * Initializes React and renders the app to the DOM root element.
+ */
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
