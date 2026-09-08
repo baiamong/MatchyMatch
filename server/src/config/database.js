@@ -14,6 +14,7 @@ export const pool = new Pool({
 // Handle pool errors
 pool.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
+  // eslint-disable-next-line no-undef
   process.exit(-1);
 });
 

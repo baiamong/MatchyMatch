@@ -55,5 +55,6 @@ if (allPassed) {
   console.log('5. Start server: npm run dev');
 } else {
   console.log('❌ Some files are missing. Please check the setup.');
+  // eslint-disable-next-line no-undef
   process.exit(1);
 }

@@ -1,7 +1,7 @@
 /**
  * Global error handler middleware
  */
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, _next) => {
   console.error('Error:', err);
 
   // Default error status and message
@@ -13,6 +13,7 @@ export const errorHandler = (err, req, res, next) => {
     error: message,
   };
 
+  // eslint-disable-next-line no-undef
   if (process.env.NODE_ENV === 'development') {
     response.stack = err.stack;
   }
