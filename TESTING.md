@@ -19,6 +19,21 @@ npm run test:watch
 npm run test:coverage
 ```
 
+### Run match logic tests (Node.js)
+```bash
+# Run all match logic tests
+node run-all-tests.mjs
+
+# Run main test suite only
+node run-tests.mjs
+
+# Run edge case tests only
+node test-edge-cases.mjs
+
+# Validate all game puzzles
+node validate-puzzles.mjs
+```
+
 ## Test Structure
 
 Tests are organized in the `src/__tests__/` directory and follow the naming convention `*.test.js`.
@@ -42,6 +57,61 @@ Tests are organized in the `src/__tests__/` directory and follow the naming conv
    - Rendering and icon display
    - Click handlers
    - Accessibility attributes (aria-label, title)
+
+4. **matchLogic.test.js** - Tests for match/connection game logic (48 tests total)
+   - **Selection validation** (4 tests)
+     - Exactly 4 words required
+     - Rejects < 4 or > 4 words
+     - Handles non-array inputs
+   
+   - **Match detection** (8 tests)
+     - Perfect matches (all 4 words same category)
+     - "One away" scenarios (3 out of 4 correct)
+     - Wrong matches (0-2 correct)
+     - Invalid selections
+     - Words not in puzzle
+     - Duplicate word handling
+   
+   - **One away detection** (7 tests)
+     - 3/4 correct detection
+     - False for perfect matches
+     - False for 2/4 correct
+     - Position-independent detection
+   
+   - **Game state management** (6 tests)
+     - Win condition (all categories found)
+     - Loss condition (no lives remaining)
+     - Lives decrement
+     - Category tracking
+   
+   - **Puzzle validation** (9 tests)
+     - Valid puzzle structure
+     - Missing/malformed categories
+     - Wrong word counts (not exactly 4)
+     - Duplicate words across categories
+     - Multiple validation errors
+   
+   - **Edge cases** (14 tests)
+     - Case sensitivity
+     - Whitespace handling
+     - Null/undefined values
+     - Empty selections
+     - Mixed valid/invalid inputs
+
+## Match Logic Test Coverage
+
+The match logic tests cover all critical game mechanics:
+
+- ✅ Selection validation (must be exactly 4 words)
+- ✅ Perfect match detection (all 4 words in same category)
+- ✅ "One away" hint (3 out of 4 correct)
+- ✅ Game win condition (all categories found)
+- ✅ Game loss condition (no lives remaining)
+- ✅ Lives management (decrement, minimum 0)
+- ✅ Puzzle data validation (structure, duplicates, word counts)
+- ✅ Edge cases (null, undefined, whitespace, case sensitivity)
+
+All 20 game puzzles have been validated against the validation rules.
 
 ## CI/CD Pipeline
 
@@ -111,3 +181,4 @@ npm run test:coverage
 3. **Keep tests isolated** - Each test should be independent
 4. **Mock external dependencies** - Use Jest mocks for API calls, timers, etc.
 5. **Test edge cases** - Include tests for boundary conditions and error states
+6. **Validate data structures** - Use validation functions to catch data issues early
