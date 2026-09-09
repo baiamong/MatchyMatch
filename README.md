@@ -60,6 +60,8 @@ npm run dev
 
 Then open the URL shown in your terminal (typically `http://localhost:5173`).
 
+During local development, the game loads all available puzzles without pre-selection, allowing you to test any puzzle via the game picker.
+
 ### Build for Production
 Create an optimized production build:
 ```bash
