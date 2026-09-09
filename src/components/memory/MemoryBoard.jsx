@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { CARD_SETS, buildDeck } from "../../data/memoryCards";
+import { doCardsMatch } from "../../utils/gameHelpers";
 import Toast from "../Toast";
 
 // ── Single card ───────────────────────────────────────────────────
@@ -294,7 +295,7 @@ function Game({ cardSet, onPlayAgain, selectedSet, onSetChange }) {
       const card1 = deck.find((c) => c.id === id1);
       const card2 = deck.find((c) => c.id === id2);
 
-      if (card1.pairKey === card2.pairKey) {
+      if (doCardsMatch(card1, card2, "pairKey")) {
         // Match!
         setTimeout(() => {
           setDeck((prev) =>

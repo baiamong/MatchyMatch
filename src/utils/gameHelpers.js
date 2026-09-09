@@ -60,3 +60,15 @@ export function debounce(func, delay) {
     timeoutId = setTimeout(() => func(...args), delay);
   };
 }
+
+/**
+ * Check if two cards match by comparing a specified property
+ * @param {Object} card1 - First card object
+ * @param {Object} card2 - Second card object
+ * @param {string} matchProperty - Property name to compare (e.g., 'label', 'breed', 'pairKey')
+ * @returns {boolean} - True if cards match
+ */
+export function doCardsMatch(card1, card2, matchProperty) {
+  if (!card1 || !card2) return false;
+  return card1[matchProperty] === card2[matchProperty];
+}
