@@ -52,6 +52,8 @@ Want to test changes on your own computer before they go live? Follow these step
    npm install
    ```
 
+The project uses Vite as its build tool and development server.
+
 ### Run Locally
 Start the development server with hot module replacement (instant updates when you save changes):
 ```bash
