@@ -642,7 +642,8 @@
 <a name='L577'></a><a href='#L577'>577</a>
 <a name='L578'></a><a href='#L578'>578</a>
 <a name='L579'></a><a href='#L579'>579</a>
-<a name='L580'></a><a href='#L580'>580</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L580'></a><a href='#L580'>580</a>
+<a name='L581'></a><a href='#L581'>581</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1015,6 +1016,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1594,11 +1596,11 @@ export default function <span class="fstat-no" title="function not covered" >Gre
   // ── Menu ──────────────────────────────────────────────────────
 <span class="cstat-no" title="statement not covered" >  if (phase === 'menu') {</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;div className="flex flex-col items-center gap-8 w-full max-w-md mx-auto px-4 pt-6 pb-12"&gt;
+      &lt;div className="flex flex-col items-center gap-8 w-full max-w-md mx-auto"&gt;
         &lt;style&gt;{KEYFRAMES}&lt;/style&gt;
         &lt;div className="flex flex-col items-center gap-3 text-center"&gt;
           &lt;span style={{ fontSize: '4rem' }}&gt;🥚&lt;/span&gt;
-          &lt;h1
+          &lt;h2
             style={{
               fontSize: '2rem',
               fontWeight: 800,
@@ -1607,7 +1609,7 @@ export default function <span class="fstat-no" title="function not covered" >Gre
             }}
           &gt;
             {"Greg's Egg"}
-          &lt;/h1&gt;
+          &lt;/h2&gt;
           &lt;p style={{ fontSize: '1rem', color: 'var(--label-secondary)', maxWidth: 320 }}&gt;
             {"Greg's chickens have gone rogue. Tap the eggs before they hatch — but watch out, the closer to hatching, the bigger the bonus!"}
           &lt;/p&gt;
@@ -1621,6 +1623,7 @@ export default function <span class="fstat-no" title="function not covered" >Gre
             { emoji: '🥚', text: 'Tap an egg to crack it — 10 pts' },
             { emoji: '🐣', text: "Tap while it's cracking for 15 pts!" },
             { emoji: '🐥', text: 'Miss it and a chick escapes…' },
+            { emoji: '⚠️', text: 'Pro tip: Eggs cannot be unscrambled. Neither can your score.' },
             { emoji: '⏱️', text: `You have ${GAME_DURATION} seconds. Go fast!` },
           ].map(<span class="fstat-no" title="function not covered" >({</span> emoji, text }) =&gt; (
 <span class="cstat-no" title="statement not covered" >            &lt;div key={text} className="flex items-center gap-3"&gt;</span>
@@ -1640,7 +1643,7 @@ export default function <span class="fstat-no" title="function not covered" >Gre
   // ── Game Over ─────────────────────────────────────────────────
 <span class="cstat-no" title="statement not covered" >  if (phase === 'gameover') {</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto px-4 pt-6 pb-12"&gt;
+      &lt;div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto"&gt;
         &lt;style&gt;{KEYFRAMES}&lt;/style&gt;
         &lt;GameOverScreen
           score={score}
@@ -1657,7 +1660,7 @@ export default function <span class="fstat-no" title="function not covered" >Gre
 <span class="cstat-no" title="statement not covered" >    timeLeft &lt;= 5 ? '#ff3b30' : timeLeft &lt;= 10 ? '#ff9f0a' : '#34c759'</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto px-4 pt-4 pb-12"&gt;
+    &lt;div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto"&gt;
       &lt;style&gt;{KEYFRAMES}&lt;/style&gt;
 &nbsp;
       {scorePopups.map(<span class="fstat-no" title="function not covered" >({</span> id, pts }) =&gt; (
@@ -1665,7 +1668,7 @@ export default function <span class="fstat-no" title="function not covered" >Gre
       ))}
 &nbsp;
       {/* Header */}
-      &lt;h1
+      &lt;h2
         style={{
           fontSize: '1.5rem',
           fontWeight: 700,
@@ -1675,7 +1678,7 @@ export default function <span class="fstat-no" title="function not covered" >Gre
         }}
       &gt;
         {"Greg's Egg 🥚"}
-      &lt;/h1&gt;
+      &lt;/h2&gt;
 &nbsp;
       {/* Stats row */}
       &lt;div className="flex items-center justify-center gap-4 flex-wrap"&gt;
@@ -1807,7 +1810,7 @@ const KEYFRAMES = <span class="cstat-no" title="statement not covered" >`</span>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-07-30T19:14:03.591Z
+                at 2026-09-08T16:20:59.714Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
