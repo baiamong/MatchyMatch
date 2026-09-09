@@ -44,6 +44,7 @@ Want to test changes on your own computer before they go live? Follow these step
 ### Prerequisites
 - Node.js version 20 or higher
 - npm (comes with Node.js)
+- The project uses Vite as its build tool and development server.
 
 ### Setup
 1. Clone the repository
