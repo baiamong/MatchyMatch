@@ -1,5 +1,9 @@
 # Puzzlr — Word Matching Puzzle Game
 
+[![CI/CD Pipeline](https://github.com/baiamong/MatchyMatch/actions/workflows/ci.yml/badge.svg)](https://github.com/baiamong/MatchyMatch/actions/workflows/ci.yml)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 MatchyMatch is a matching game where you group items into categories based on hidden connections.
 
 ## 🎮 Play the Game
